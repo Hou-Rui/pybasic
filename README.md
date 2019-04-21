@@ -119,6 +119,31 @@ PRINT "My age is " + A    ' "My age is 17"
 
 #### modules
 
-Use ```USE``` to import a Python module or another pybasic program. Pybasic will try finding a file ended with ```.bas``` or ```.py``` following the module's name in the current working directory. If no such file is finded, an error will be raised.
+Use ```USE``` to import a Python module or another pybasic program. Pybasic will try finding a file ended with ```.bas``` or ```.py``` following the module's name in the current working directory. If no such file is finded, an error will be raised. For example:
+
+```basic
+' HELLO.bas
+FUNCTION PRTHELLO(A)
+    PRINT "Hello, " + A
+END FUNCTION
+```
+
+```python
+# MORNING.py
+from pybasic import global_table
+
+@global_table.reflect('PRTMORN')
+def print_morning(a):
+    print('Good morning, %s' % a)
+```
+
+```basic
+' MAIN.bas
+USE HELLO
+USE MORNING
+
+PRTHELLO "Jack" ' Hello, Jack
+PRTMORN "Mary"  ' Good morning, Mary
+```
 
 Any code in the module will be executed. If the module is python-based, it will be executed at runtime; if it is pybasic-based, it will be compiled into the main program before being executed.
