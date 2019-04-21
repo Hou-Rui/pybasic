@@ -27,8 +27,16 @@ class SymbolTable:
             return func
         return decorator
     
-    def reflect(self, id, func):
-        self.set(id, lambda n: func(*(x.run() for x in n)))
+    def reflect(self, id, func=None):
+        if func is not None:
+            new_func = lambda n: func(*(x.run() for x in n))
+            self.set(id, new_func)
+        else:
+            def decorator(func):
+                new_func = lambda n: func(*(x.run() for x in n))
+                self.set(id, new_func)
+                return new_func
+            return decorator
 
 global_table = SymbolTable()
 table_stack = Stack([global_table])
