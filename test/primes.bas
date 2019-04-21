@@ -1,0 +1,23 @@
+DIM PRIMES(100) AS INTEGER
+DIM NOT_PRIME(100) AS INTEGER
+LET CNT = 0
+
+FOR I = 2 TO 100
+    IF NOT_PRIME(I) = 0 THEN
+        CNT = CNT + 1
+        PRIMES(CNT) = I
+    END IF
+    FOR J = 1 TO CNT
+        IF I * PRIMES(J) > 100 THEN
+            EXIT FOR
+        END IF
+        NOT_PRIME(I * PRIMES(J)) = 1
+        IF I MOD PRIMES(J) = 0 THEN
+            EXIT FOR
+        END IF
+    NEXT J
+NEXT I
+
+FOR I = 1 TO CNT
+    PRINT PRIMES(I)
+NEXT I
