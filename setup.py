@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='pybasic',
+    name='ply-pybasic',
     version='1.0',
     packages=['pybasic'],
     author='Hou Rui',
