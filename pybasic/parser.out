@@ -1,0 +1,3562 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> assignment
+Rule 2     statement -> declaration
+Rule 3     statement -> expression
+Rule 4     statement -> funcall
+Rule 5     statement -> control
+Rule 6     statement -> return
+Rule 7     statement -> defun_statement
+Rule 8     statement -> block_begin
+Rule 9     statement -> block_end
+Rule 10    statement -> if_block_begin
+Rule 11    statement -> elseif_block_begin
+Rule 12    statement -> else_statement
+Rule 13    args_list -> args_list COMMA expression
+Rule 14    args_list -> expression
+Rule 15    params_list -> params_list COMMA ID
+Rule 16    params_list -> ID
+Rule 17    defun_statement -> DEFUN ID LPAREN params_list RPAREN EQUALS expression
+Rule 18    funcall -> ID args_list
+Rule 19    assignment -> ID EQUALS expression
+Rule 20    assignment -> LET ID EQUALS expression
+Rule 21    assignment -> ID LPAREN expression RPAREN EQUALS expression
+Rule 22    declaration -> declare_array
+Rule 23    declare_array -> DIM ID LPAREN expression RPAREN AS ID
+Rule 24    rel_expression -> expression GREATER_THAN expression
+Rule 25    rel_expression -> expression LESS_THAN expression
+Rule 26    rel_expression -> expression EQUAL_GREATER_THAN expression
+Rule 27    rel_expression -> expression EQUAL_LESS_THAN expression
+Rule 28    rel_expression -> expression EQUALS expression
+Rule 29    rel_expression -> expression NOT_EQUAL expression
+Rule 30    rel_expression -> rel_expression AND rel_expression
+Rule 31    rel_expression -> rel_expression OR rel_expression
+Rule 32    rel_expression -> LPAREN rel_expression RPAREN
+Rule 33    rel_expression -> NOT rel_expression
+Rule 34    expression -> expression PLUS expression
+Rule 35    expression -> expression MINUS expression
+Rule 36    expression -> expression TIMES expression
+Rule 37    expression -> expression DIVIDE expression
+Rule 38    expression -> expression EXACTDIV expression
+Rule 39    expression -> expression MOD expression
+Rule 40    expression -> expression AS expression
+Rule 41    expression -> expression EXP expression
+Rule 42    expression -> MINUS expression
+Rule 43    expression -> LPAREN expression RPAREN
+Rule 44    expression -> ID LPAREN RPAREN
+Rule 45    expression -> ID LPAREN args_list RPAREN
+Rule 46    expression -> INTEGER
+Rule 47    expression -> DECIMAL
+Rule 48    expression -> STRING
+Rule 49    expression -> ID
+Rule 50    expression -> LBRACE args_list RBRACE
+Rule 51    block_begin -> while_block_begin
+Rule 52    block_begin -> for_block_begin
+Rule 53    block_begin -> do_block_begin
+Rule 54    block_begin -> function_block_begin
+Rule 55    if_block_begin -> IF rel_expression THEN
+Rule 56    else_statement -> ELSE
+Rule 57    elseif_block_begin -> ELSEIF rel_expression THEN
+Rule 58    while_block_begin -> WHILE rel_expression
+Rule 59    do_block_begin -> DO
+Rule 60    for_block_begin -> FOR ID EQUALS expression TO expression
+Rule 61    for_block_begin -> FOR ID EQUALS expression TO expression STEP expression
+Rule 62    function_block_begin -> SUB ID LPAREN params_list RPAREN
+Rule 63    function_block_begin -> FUNCTION ID LPAREN params_list RPAREN
+Rule 64    block_end -> END IF
+Rule 65    block_end -> END WHILE
+Rule 66    block_end -> WEND
+Rule 67    block_end -> END FOR
+Rule 68    block_end -> NEXT ID
+Rule 69    block_end -> LOOP
+Rule 70    block_end -> LOOP WHILE rel_expression
+Rule 71    block_end -> LOOP UNTIL rel_expression
+Rule 72    block_end -> END SUB
+Rule 73    block_end -> END FUNCTION
+Rule 74    return -> RETURN
+Rule 75    return -> RETURN expression
+Rule 76    control -> EXIT WHILE
+Rule 77    control -> EXIT DO
+Rule 78    control -> EXIT FOR
+Rule 79    control -> CONTINUE WHILE
+Rule 80    control -> CONTINUE DO
+Rule 81    control -> CONTINUE FOR
+Rule 82    statement -> USE ID
+
+Terminals, with rules where they appear
+
+AND                  : 30
+AS                   : 23 40
+COMMA                : 13 15
+CONTINUE             : 79 80 81
+DECIMAL              : 47
+DEFUN                : 17
+DIM                  : 23
+DIVIDE               : 37
+DO                   : 59 77 80
+ELSE                 : 56
+ELSEIF               : 57
+END                  : 64 65 67 72 73
+EQUALS               : 17 19 20 21 28 60 61
+EQUAL_GREATER_THAN   : 26
+EQUAL_LESS_THAN      : 27
+EXACTDIV             : 38
+EXIT                 : 76 77 78
+EXP                  : 41
+FOR                  : 60 61 67 78 81
+FUNCTION             : 63 73
+GREATER_THAN         : 24
+ID                   : 15 16 17 18 19 20 21 23 23 44 45 49 60 61 62 63 68 82
+IF                   : 55 64
+INTEGER              : 46
+LBRACE               : 50
+LESS_THAN            : 25
+LET                  : 20
+LOOP                 : 69 70 71
+LPAREN               : 17 21 23 32 43 44 45 62 63
+MINUS                : 35 42
+MOD                  : 39
+NEXT                 : 68
+NOT                  : 33
+NOT_EQUAL            : 29
+OR                   : 31
+PLUS                 : 34
+RBRACE               : 50
+RETURN               : 74 75
+RPAREN               : 17 21 23 32 43 44 45 62 63
+STEP                 : 61
+STRING               : 48
+SUB                  : 62 72
+THEN                 : 55 57
+TIMES                : 36
+TO                   : 60 61
+UNTIL                : 71
+USE                  : 82
+WEND                 : 66
+WHILE                : 58 65 70 76 79
+error                : 
+
+Nonterminals, with rules where they appear
+
+args_list            : 13 18 45 50
+assignment           : 1
+block_begin          : 8
+block_end            : 9
+control              : 5
+declaration          : 2
+declare_array        : 22
+defun_statement      : 7
+do_block_begin       : 53
+else_statement       : 12
+elseif_block_begin   : 11
+expression           : 3 13 14 17 19 20 21 21 23 24 24 25 25 26 26 27 27 28 28 29 29 34 34 35 35 36 36 37 37 38 38 39 39 40 40 41 41 42 43 60 60 61 61 61 75
+for_block_begin      : 52
+funcall              : 4
+function_block_begin : 54
+if_block_begin       : 10
+params_list          : 15 17 62 63
+rel_expression       : 30 30 31 31 32 33 55 57 58 70 71
+return               : 6
+statement            : 0
+while_block_begin    : 51
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . assignment
+    (2) statement -> . declaration
+    (3) statement -> . expression
+    (4) statement -> . funcall
+    (5) statement -> . control
+    (6) statement -> . return
+    (7) statement -> . defun_statement
+    (8) statement -> . block_begin
+    (9) statement -> . block_end
+    (10) statement -> . if_block_begin
+    (11) statement -> . elseif_block_begin
+    (12) statement -> . else_statement
+    (82) statement -> . USE ID
+    (19) assignment -> . ID EQUALS expression
+    (20) assignment -> . LET ID EQUALS expression
+    (21) assignment -> . ID LPAREN expression RPAREN EQUALS expression
+    (22) declaration -> . declare_array
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+    (18) funcall -> . ID args_list
+    (76) control -> . EXIT WHILE
+    (77) control -> . EXIT DO
+    (78) control -> . EXIT FOR
+    (79) control -> . CONTINUE WHILE
+    (80) control -> . CONTINUE DO
+    (81) control -> . CONTINUE FOR
+    (74) return -> . RETURN
+    (75) return -> . RETURN expression
+    (17) defun_statement -> . DEFUN ID LPAREN params_list RPAREN EQUALS expression
+    (51) block_begin -> . while_block_begin
+    (52) block_begin -> . for_block_begin
+    (53) block_begin -> . do_block_begin
+    (54) block_begin -> . function_block_begin
+    (64) block_end -> . END IF
+    (65) block_end -> . END WHILE
+    (66) block_end -> . WEND
+    (67) block_end -> . END FOR
+    (68) block_end -> . NEXT ID
+    (69) block_end -> . LOOP
+    (70) block_end -> . LOOP WHILE rel_expression
+    (71) block_end -> . LOOP UNTIL rel_expression
+    (72) block_end -> . END SUB
+    (73) block_end -> . END FUNCTION
+    (55) if_block_begin -> . IF rel_expression THEN
+    (57) elseif_block_begin -> . ELSEIF rel_expression THEN
+    (56) else_statement -> . ELSE
+    (23) declare_array -> . DIM ID LPAREN expression RPAREN AS ID
+    (58) while_block_begin -> . WHILE rel_expression
+    (60) for_block_begin -> . FOR ID EQUALS expression TO expression
+    (61) for_block_begin -> . FOR ID EQUALS expression TO expression STEP expression
+    (59) do_block_begin -> . DO
+    (62) function_block_begin -> . SUB ID LPAREN params_list RPAREN
+    (63) function_block_begin -> . FUNCTION ID LPAREN params_list RPAREN
+
+    USE             shift and go to state 14
+    ID              shift and go to state 15
+    LET             shift and go to state 16
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+    EXIT            shift and go to state 24
+    CONTINUE        shift and go to state 28
+    RETURN          shift and go to state 29
+    DEFUN           shift and go to state 30
+    END             shift and go to state 35
+    WEND            shift and go to state 37
+    NEXT            shift and go to state 38
+    LOOP            shift and go to state 39
+    IF              shift and go to state 36
+    ELSEIF          shift and go to state 42
+    ELSE            shift and go to state 43
+    DIM             shift and go to state 44
+    WHILE           shift and go to state 25
+    FOR             shift and go to state 27
+    DO              shift and go to state 26
+    SUB             shift and go to state 40
+    FUNCTION        shift and go to state 41
+
+    statement                      shift and go to state 1
+    assignment                     shift and go to state 2
+    declaration                    shift and go to state 3
+    expression                     shift and go to state 4
+    funcall                        shift and go to state 5
+    control                        shift and go to state 6
+    return                         shift and go to state 7
+    defun_statement                shift and go to state 8
+    block_begin                    shift and go to state 9
+    block_end                      shift and go to state 10
+    if_block_begin                 shift and go to state 11
+    elseif_block_begin             shift and go to state 12
+    else_statement                 shift and go to state 13
+    declare_array                  shift and go to state 18
+    while_block_begin              shift and go to state 31
+    for_block_begin                shift and go to state 32
+    do_block_begin                 shift and go to state 33
+    function_block_begin           shift and go to state 34
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> assignment .
+
+    $end            reduce using rule 1 (statement -> assignment .)
+
+
+state 3
+
+    (2) statement -> declaration .
+
+    $end            reduce using rule 2 (statement -> declaration .)
+
+
+state 4
+
+    (3) statement -> expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    $end            reduce using rule 3 (statement -> expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 5
+
+    (4) statement -> funcall .
+
+    $end            reduce using rule 4 (statement -> funcall .)
+
+
+state 6
+
+    (5) statement -> control .
+
+    $end            reduce using rule 5 (statement -> control .)
+
+
+state 7
+
+    (6) statement -> return .
+
+    $end            reduce using rule 6 (statement -> return .)
+
+
+state 8
+
+    (7) statement -> defun_statement .
+
+    $end            reduce using rule 7 (statement -> defun_statement .)
+
+
+state 9
+
+    (8) statement -> block_begin .
+
+    $end            reduce using rule 8 (statement -> block_begin .)
+
+
+state 10
+
+    (9) statement -> block_end .
+
+    $end            reduce using rule 9 (statement -> block_end .)
+
+
+state 11
+
+    (10) statement -> if_block_begin .
+
+    $end            reduce using rule 10 (statement -> if_block_begin .)
+
+
+state 12
+
+    (11) statement -> elseif_block_begin .
+
+    $end            reduce using rule 11 (statement -> elseif_block_begin .)
+
+
+state 13
+
+    (12) statement -> else_statement .
+
+    $end            reduce using rule 12 (statement -> else_statement .)
+
+
+state 14
+
+    (82) statement -> USE . ID
+
+    ID              shift and go to state 53
+
+
+state 15
+
+    (19) assignment -> ID . EQUALS expression
+    (21) assignment -> ID . LPAREN expression RPAREN EQUALS expression
+    (44) expression -> ID . LPAREN RPAREN
+    (45) expression -> ID . LPAREN args_list RPAREN
+    (49) expression -> ID .
+    (18) funcall -> ID . args_list
+    (13) args_list -> . args_list COMMA expression
+    (14) args_list -> . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+  ! shift/reduce conflict for MINUS resolved as shift
+    EQUALS          shift and go to state 55
+    LPAREN          shift and go to state 57
+    PLUS            reduce using rule 49 (expression -> ID .)
+    TIMES           reduce using rule 49 (expression -> ID .)
+    DIVIDE          reduce using rule 49 (expression -> ID .)
+    EXACTDIV        reduce using rule 49 (expression -> ID .)
+    MOD             reduce using rule 49 (expression -> ID .)
+    AS              reduce using rule 49 (expression -> ID .)
+    EXP             reduce using rule 49 (expression -> ID .)
+    $end            reduce using rule 49 (expression -> ID .)
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+  ! MINUS           [ reduce using rule 49 (expression -> ID .) ]
+
+    expression                     shift and go to state 56
+    args_list                      shift and go to state 58
+
+state 16
+
+    (20) assignment -> LET . ID EQUALS expression
+
+    ID              shift and go to state 59
+
+
+state 17
+
+    (43) expression -> LPAREN . expression RPAREN
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 60
+
+state 18
+
+    (22) declaration -> declare_array .
+
+    $end            reduce using rule 22 (declaration -> declare_array .)
+
+
+state 19
+
+    (42) expression -> MINUS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 61
+
+state 20
+
+    (46) expression -> INTEGER .
+
+    PLUS            reduce using rule 46 (expression -> INTEGER .)
+    MINUS           reduce using rule 46 (expression -> INTEGER .)
+    TIMES           reduce using rule 46 (expression -> INTEGER .)
+    DIVIDE          reduce using rule 46 (expression -> INTEGER .)
+    EXACTDIV        reduce using rule 46 (expression -> INTEGER .)
+    MOD             reduce using rule 46 (expression -> INTEGER .)
+    AS              reduce using rule 46 (expression -> INTEGER .)
+    EXP             reduce using rule 46 (expression -> INTEGER .)
+    $end            reduce using rule 46 (expression -> INTEGER .)
+    COMMA           reduce using rule 46 (expression -> INTEGER .)
+    RPAREN          reduce using rule 46 (expression -> INTEGER .)
+    RBRACE          reduce using rule 46 (expression -> INTEGER .)
+    GREATER_THAN    reduce using rule 46 (expression -> INTEGER .)
+    LESS_THAN       reduce using rule 46 (expression -> INTEGER .)
+    EQUAL_GREATER_THAN reduce using rule 46 (expression -> INTEGER .)
+    EQUAL_LESS_THAN reduce using rule 46 (expression -> INTEGER .)
+    EQUALS          reduce using rule 46 (expression -> INTEGER .)
+    NOT_EQUAL       reduce using rule 46 (expression -> INTEGER .)
+    AND             reduce using rule 46 (expression -> INTEGER .)
+    OR              reduce using rule 46 (expression -> INTEGER .)
+    THEN            reduce using rule 46 (expression -> INTEGER .)
+    TO              reduce using rule 46 (expression -> INTEGER .)
+    STEP            reduce using rule 46 (expression -> INTEGER .)
+
+
+state 21
+
+    (47) expression -> DECIMAL .
+
+    PLUS            reduce using rule 47 (expression -> DECIMAL .)
+    MINUS           reduce using rule 47 (expression -> DECIMAL .)
+    TIMES           reduce using rule 47 (expression -> DECIMAL .)
+    DIVIDE          reduce using rule 47 (expression -> DECIMAL .)
+    EXACTDIV        reduce using rule 47 (expression -> DECIMAL .)
+    MOD             reduce using rule 47 (expression -> DECIMAL .)
+    AS              reduce using rule 47 (expression -> DECIMAL .)
+    EXP             reduce using rule 47 (expression -> DECIMAL .)
+    $end            reduce using rule 47 (expression -> DECIMAL .)
+    COMMA           reduce using rule 47 (expression -> DECIMAL .)
+    RPAREN          reduce using rule 47 (expression -> DECIMAL .)
+    RBRACE          reduce using rule 47 (expression -> DECIMAL .)
+    GREATER_THAN    reduce using rule 47 (expression -> DECIMAL .)
+    LESS_THAN       reduce using rule 47 (expression -> DECIMAL .)
+    EQUAL_GREATER_THAN reduce using rule 47 (expression -> DECIMAL .)
+    EQUAL_LESS_THAN reduce using rule 47 (expression -> DECIMAL .)
+    EQUALS          reduce using rule 47 (expression -> DECIMAL .)
+    NOT_EQUAL       reduce using rule 47 (expression -> DECIMAL .)
+    AND             reduce using rule 47 (expression -> DECIMAL .)
+    OR              reduce using rule 47 (expression -> DECIMAL .)
+    THEN            reduce using rule 47 (expression -> DECIMAL .)
+    TO              reduce using rule 47 (expression -> DECIMAL .)
+    STEP            reduce using rule 47 (expression -> DECIMAL .)
+
+
+state 22
+
+    (48) expression -> STRING .
+
+    PLUS            reduce using rule 48 (expression -> STRING .)
+    MINUS           reduce using rule 48 (expression -> STRING .)
+    TIMES           reduce using rule 48 (expression -> STRING .)
+    DIVIDE          reduce using rule 48 (expression -> STRING .)
+    EXACTDIV        reduce using rule 48 (expression -> STRING .)
+    MOD             reduce using rule 48 (expression -> STRING .)
+    AS              reduce using rule 48 (expression -> STRING .)
+    EXP             reduce using rule 48 (expression -> STRING .)
+    $end            reduce using rule 48 (expression -> STRING .)
+    COMMA           reduce using rule 48 (expression -> STRING .)
+    RPAREN          reduce using rule 48 (expression -> STRING .)
+    RBRACE          reduce using rule 48 (expression -> STRING .)
+    GREATER_THAN    reduce using rule 48 (expression -> STRING .)
+    LESS_THAN       reduce using rule 48 (expression -> STRING .)
+    EQUAL_GREATER_THAN reduce using rule 48 (expression -> STRING .)
+    EQUAL_LESS_THAN reduce using rule 48 (expression -> STRING .)
+    EQUALS          reduce using rule 48 (expression -> STRING .)
+    NOT_EQUAL       reduce using rule 48 (expression -> STRING .)
+    AND             reduce using rule 48 (expression -> STRING .)
+    OR              reduce using rule 48 (expression -> STRING .)
+    THEN            reduce using rule 48 (expression -> STRING .)
+    TO              reduce using rule 48 (expression -> STRING .)
+    STEP            reduce using rule 48 (expression -> STRING .)
+
+
+state 23
+
+    (50) expression -> LBRACE . args_list RBRACE
+    (13) args_list -> . args_list COMMA expression
+    (14) args_list -> . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    args_list                      shift and go to state 62
+    expression                     shift and go to state 56
+
+state 24
+
+    (76) control -> EXIT . WHILE
+    (77) control -> EXIT . DO
+    (78) control -> EXIT . FOR
+
+    WHILE           shift and go to state 63
+    DO              shift and go to state 64
+    FOR             shift and go to state 65
+
+
+state 25
+
+    (58) while_block_begin -> WHILE . rel_expression
+    (24) rel_expression -> . expression GREATER_THAN expression
+    (25) rel_expression -> . expression LESS_THAN expression
+    (26) rel_expression -> . expression EQUAL_GREATER_THAN expression
+    (27) rel_expression -> . expression EQUAL_LESS_THAN expression
+    (28) rel_expression -> . expression EQUALS expression
+    (29) rel_expression -> . expression NOT_EQUAL expression
+    (30) rel_expression -> . rel_expression AND rel_expression
+    (31) rel_expression -> . rel_expression OR rel_expression
+    (32) rel_expression -> . LPAREN rel_expression RPAREN
+    (33) rel_expression -> . NOT rel_expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    LPAREN          shift and go to state 68
+    NOT             shift and go to state 69
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    rel_expression                 shift and go to state 66
+    expression                     shift and go to state 67
+
+state 26
+
+    (59) do_block_begin -> DO .
+
+    $end            reduce using rule 59 (do_block_begin -> DO .)
+
+
+state 27
+
+    (60) for_block_begin -> FOR . ID EQUALS expression TO expression
+    (61) for_block_begin -> FOR . ID EQUALS expression TO expression STEP expression
+
+    ID              shift and go to state 70
+
+
+state 28
+
+    (79) control -> CONTINUE . WHILE
+    (80) control -> CONTINUE . DO
+    (81) control -> CONTINUE . FOR
+
+    WHILE           shift and go to state 71
+    DO              shift and go to state 72
+    FOR             shift and go to state 73
+
+
+state 29
+
+    (74) return -> RETURN .
+    (75) return -> RETURN . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    $end            reduce using rule 74 (return -> RETURN .)
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 74
+
+state 30
+
+    (17) defun_statement -> DEFUN . ID LPAREN params_list RPAREN EQUALS expression
+
+    ID              shift and go to state 75
+
+
+state 31
+
+    (51) block_begin -> while_block_begin .
+
+    $end            reduce using rule 51 (block_begin -> while_block_begin .)
+
+
+state 32
+
+    (52) block_begin -> for_block_begin .
+
+    $end            reduce using rule 52 (block_begin -> for_block_begin .)
+
+
+state 33
+
+    (53) block_begin -> do_block_begin .
+
+    $end            reduce using rule 53 (block_begin -> do_block_begin .)
+
+
+state 34
+
+    (54) block_begin -> function_block_begin .
+
+    $end            reduce using rule 54 (block_begin -> function_block_begin .)
+
+
+state 35
+
+    (64) block_end -> END . IF
+    (65) block_end -> END . WHILE
+    (67) block_end -> END . FOR
+    (72) block_end -> END . SUB
+    (73) block_end -> END . FUNCTION
+
+    IF              shift and go to state 76
+    WHILE           shift and go to state 77
+    FOR             shift and go to state 78
+    SUB             shift and go to state 79
+    FUNCTION        shift and go to state 80
+
+
+state 36
+
+    (55) if_block_begin -> IF . rel_expression THEN
+    (24) rel_expression -> . expression GREATER_THAN expression
+    (25) rel_expression -> . expression LESS_THAN expression
+    (26) rel_expression -> . expression EQUAL_GREATER_THAN expression
+    (27) rel_expression -> . expression EQUAL_LESS_THAN expression
+    (28) rel_expression -> . expression EQUALS expression
+    (29) rel_expression -> . expression NOT_EQUAL expression
+    (30) rel_expression -> . rel_expression AND rel_expression
+    (31) rel_expression -> . rel_expression OR rel_expression
+    (32) rel_expression -> . LPAREN rel_expression RPAREN
+    (33) rel_expression -> . NOT rel_expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    LPAREN          shift and go to state 68
+    NOT             shift and go to state 69
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    rel_expression                 shift and go to state 81
+    expression                     shift and go to state 67
+
+state 37
+
+    (66) block_end -> WEND .
+
+    $end            reduce using rule 66 (block_end -> WEND .)
+
+
+state 38
+
+    (68) block_end -> NEXT . ID
+
+    ID              shift and go to state 82
+
+
+state 39
+
+    (69) block_end -> LOOP .
+    (70) block_end -> LOOP . WHILE rel_expression
+    (71) block_end -> LOOP . UNTIL rel_expression
+
+    $end            reduce using rule 69 (block_end -> LOOP .)
+    WHILE           shift and go to state 83
+    UNTIL           shift and go to state 84
+
+
+state 40
+
+    (62) function_block_begin -> SUB . ID LPAREN params_list RPAREN
+
+    ID              shift and go to state 85
+
+
+state 41
+
+    (63) function_block_begin -> FUNCTION . ID LPAREN params_list RPAREN
+
+    ID              shift and go to state 86
+
+
+state 42
+
+    (57) elseif_block_begin -> ELSEIF . rel_expression THEN
+    (24) rel_expression -> . expression GREATER_THAN expression
+    (25) rel_expression -> . expression LESS_THAN expression
+    (26) rel_expression -> . expression EQUAL_GREATER_THAN expression
+    (27) rel_expression -> . expression EQUAL_LESS_THAN expression
+    (28) rel_expression -> . expression EQUALS expression
+    (29) rel_expression -> . expression NOT_EQUAL expression
+    (30) rel_expression -> . rel_expression AND rel_expression
+    (31) rel_expression -> . rel_expression OR rel_expression
+    (32) rel_expression -> . LPAREN rel_expression RPAREN
+    (33) rel_expression -> . NOT rel_expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    LPAREN          shift and go to state 68
+    NOT             shift and go to state 69
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    rel_expression                 shift and go to state 87
+    expression                     shift and go to state 67
+
+state 43
+
+    (56) else_statement -> ELSE .
+
+    $end            reduce using rule 56 (else_statement -> ELSE .)
+
+
+state 44
+
+    (23) declare_array -> DIM . ID LPAREN expression RPAREN AS ID
+
+    ID              shift and go to state 88
+
+
+state 45
+
+    (34) expression -> expression PLUS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 89
+
+state 46
+
+    (35) expression -> expression MINUS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 90
+
+state 47
+
+    (36) expression -> expression TIMES . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 91
+
+state 48
+
+    (37) expression -> expression DIVIDE . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 92
+
+state 49
+
+    (38) expression -> expression EXACTDIV . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 93
+
+state 50
+
+    (39) expression -> expression MOD . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 94
+
+state 51
+
+    (40) expression -> expression AS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 95
+
+state 52
+
+    (41) expression -> expression EXP . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 96
+
+state 53
+
+    (82) statement -> USE ID .
+
+    $end            reduce using rule 82 (statement -> USE ID .)
+
+
+state 54
+
+    (44) expression -> ID . LPAREN RPAREN
+    (45) expression -> ID . LPAREN args_list RPAREN
+    (49) expression -> ID .
+
+    LPAREN          shift and go to state 97
+    PLUS            reduce using rule 49 (expression -> ID .)
+    MINUS           reduce using rule 49 (expression -> ID .)
+    TIMES           reduce using rule 49 (expression -> ID .)
+    DIVIDE          reduce using rule 49 (expression -> ID .)
+    EXACTDIV        reduce using rule 49 (expression -> ID .)
+    MOD             reduce using rule 49 (expression -> ID .)
+    AS              reduce using rule 49 (expression -> ID .)
+    EXP             reduce using rule 49 (expression -> ID .)
+    COMMA           reduce using rule 49 (expression -> ID .)
+    $end            reduce using rule 49 (expression -> ID .)
+    RPAREN          reduce using rule 49 (expression -> ID .)
+    RBRACE          reduce using rule 49 (expression -> ID .)
+    GREATER_THAN    reduce using rule 49 (expression -> ID .)
+    LESS_THAN       reduce using rule 49 (expression -> ID .)
+    EQUAL_GREATER_THAN reduce using rule 49 (expression -> ID .)
+    EQUAL_LESS_THAN reduce using rule 49 (expression -> ID .)
+    EQUALS          reduce using rule 49 (expression -> ID .)
+    NOT_EQUAL       reduce using rule 49 (expression -> ID .)
+    AND             reduce using rule 49 (expression -> ID .)
+    OR              reduce using rule 49 (expression -> ID .)
+    THEN            reduce using rule 49 (expression -> ID .)
+    TO              reduce using rule 49 (expression -> ID .)
+    STEP            reduce using rule 49 (expression -> ID .)
+
+
+state 55
+
+    (19) assignment -> ID EQUALS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 98
+
+state 56
+
+    (14) args_list -> expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    COMMA           reduce using rule 14 (args_list -> expression .)
+    $end            reduce using rule 14 (args_list -> expression .)
+    RBRACE          reduce using rule 14 (args_list -> expression .)
+    RPAREN          reduce using rule 14 (args_list -> expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 57
+
+    (21) assignment -> ID LPAREN . expression RPAREN EQUALS expression
+    (44) expression -> ID LPAREN . RPAREN
+    (45) expression -> ID LPAREN . args_list RPAREN
+    (43) expression -> LPAREN . expression RPAREN
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+    (13) args_list -> . args_list COMMA expression
+    (14) args_list -> . expression
+
+    RPAREN          shift and go to state 100
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 99
+    args_list                      shift and go to state 101
+
+state 58
+
+    (18) funcall -> ID args_list .
+    (13) args_list -> args_list . COMMA expression
+
+    $end            reduce using rule 18 (funcall -> ID args_list .)
+    COMMA           shift and go to state 102
+
+
+state 59
+
+    (20) assignment -> LET ID . EQUALS expression
+
+    EQUALS          shift and go to state 103
+
+
+state 60
+
+    (43) expression -> LPAREN expression . RPAREN
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    RPAREN          shift and go to state 104
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 61
+
+    (42) expression -> MINUS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    PLUS            reduce using rule 42 (expression -> MINUS expression .)
+    MINUS           reduce using rule 42 (expression -> MINUS expression .)
+    TIMES           reduce using rule 42 (expression -> MINUS expression .)
+    DIVIDE          reduce using rule 42 (expression -> MINUS expression .)
+    EXACTDIV        reduce using rule 42 (expression -> MINUS expression .)
+    MOD             reduce using rule 42 (expression -> MINUS expression .)
+    AS              reduce using rule 42 (expression -> MINUS expression .)
+    EXP             reduce using rule 42 (expression -> MINUS expression .)
+    $end            reduce using rule 42 (expression -> MINUS expression .)
+    COMMA           reduce using rule 42 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 42 (expression -> MINUS expression .)
+    RBRACE          reduce using rule 42 (expression -> MINUS expression .)
+    GREATER_THAN    reduce using rule 42 (expression -> MINUS expression .)
+    LESS_THAN       reduce using rule 42 (expression -> MINUS expression .)
+    EQUAL_GREATER_THAN reduce using rule 42 (expression -> MINUS expression .)
+    EQUAL_LESS_THAN reduce using rule 42 (expression -> MINUS expression .)
+    EQUALS          reduce using rule 42 (expression -> MINUS expression .)
+    NOT_EQUAL       reduce using rule 42 (expression -> MINUS expression .)
+    AND             reduce using rule 42 (expression -> MINUS expression .)
+    OR              reduce using rule 42 (expression -> MINUS expression .)
+    THEN            reduce using rule 42 (expression -> MINUS expression .)
+    TO              reduce using rule 42 (expression -> MINUS expression .)
+    STEP            reduce using rule 42 (expression -> MINUS expression .)
+
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! TIMES           [ shift and go to state 47 ]
+  ! DIVIDE          [ shift and go to state 48 ]
+  ! EXACTDIV        [ shift and go to state 49 ]
+  ! MOD             [ shift and go to state 50 ]
+  ! AS              [ shift and go to state 51 ]
+  ! EXP             [ shift and go to state 52 ]
+
+
+state 62
+
+    (50) expression -> LBRACE args_list . RBRACE
+    (13) args_list -> args_list . COMMA expression
+
+    RBRACE          shift and go to state 105
+    COMMA           shift and go to state 102
+
+
+state 63
+
+    (76) control -> EXIT WHILE .
+
+    $end            reduce using rule 76 (control -> EXIT WHILE .)
+
+
+state 64
+
+    (77) control -> EXIT DO .
+
+    $end            reduce using rule 77 (control -> EXIT DO .)
+
+
+state 65
+
+    (78) control -> EXIT FOR .
+
+    $end            reduce using rule 78 (control -> EXIT FOR .)
+
+
+state 66
+
+    (58) while_block_begin -> WHILE rel_expression .
+    (30) rel_expression -> rel_expression . AND rel_expression
+    (31) rel_expression -> rel_expression . OR rel_expression
+
+    $end            reduce using rule 58 (while_block_begin -> WHILE rel_expression .)
+    AND             shift and go to state 106
+    OR              shift and go to state 107
+
+
+state 67
+
+    (24) rel_expression -> expression . GREATER_THAN expression
+    (25) rel_expression -> expression . LESS_THAN expression
+    (26) rel_expression -> expression . EQUAL_GREATER_THAN expression
+    (27) rel_expression -> expression . EQUAL_LESS_THAN expression
+    (28) rel_expression -> expression . EQUALS expression
+    (29) rel_expression -> expression . NOT_EQUAL expression
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    GREATER_THAN    shift and go to state 108
+    LESS_THAN       shift and go to state 109
+    EQUAL_GREATER_THAN shift and go to state 110
+    EQUAL_LESS_THAN shift and go to state 111
+    EQUALS          shift and go to state 112
+    NOT_EQUAL       shift and go to state 113
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 68
+
+    (32) rel_expression -> LPAREN . rel_expression RPAREN
+    (43) expression -> LPAREN . expression RPAREN
+    (24) rel_expression -> . expression GREATER_THAN expression
+    (25) rel_expression -> . expression LESS_THAN expression
+    (26) rel_expression -> . expression EQUAL_GREATER_THAN expression
+    (27) rel_expression -> . expression EQUAL_LESS_THAN expression
+    (28) rel_expression -> . expression EQUALS expression
+    (29) rel_expression -> . expression NOT_EQUAL expression
+    (30) rel_expression -> . rel_expression AND rel_expression
+    (31) rel_expression -> . rel_expression OR rel_expression
+    (32) rel_expression -> . LPAREN rel_expression RPAREN
+    (33) rel_expression -> . NOT rel_expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    LPAREN          shift and go to state 68
+    NOT             shift and go to state 69
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    rel_expression                 shift and go to state 114
+    expression                     shift and go to state 115
+
+state 69
+
+    (33) rel_expression -> NOT . rel_expression
+    (24) rel_expression -> . expression GREATER_THAN expression
+    (25) rel_expression -> . expression LESS_THAN expression
+    (26) rel_expression -> . expression EQUAL_GREATER_THAN expression
+    (27) rel_expression -> . expression EQUAL_LESS_THAN expression
+    (28) rel_expression -> . expression EQUALS expression
+    (29) rel_expression -> . expression NOT_EQUAL expression
+    (30) rel_expression -> . rel_expression AND rel_expression
+    (31) rel_expression -> . rel_expression OR rel_expression
+    (32) rel_expression -> . LPAREN rel_expression RPAREN
+    (33) rel_expression -> . NOT rel_expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    LPAREN          shift and go to state 68
+    NOT             shift and go to state 69
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    rel_expression                 shift and go to state 116
+    expression                     shift and go to state 67
+
+state 70
+
+    (60) for_block_begin -> FOR ID . EQUALS expression TO expression
+    (61) for_block_begin -> FOR ID . EQUALS expression TO expression STEP expression
+
+    EQUALS          shift and go to state 117
+
+
+state 71
+
+    (79) control -> CONTINUE WHILE .
+
+    $end            reduce using rule 79 (control -> CONTINUE WHILE .)
+
+
+state 72
+
+    (80) control -> CONTINUE DO .
+
+    $end            reduce using rule 80 (control -> CONTINUE DO .)
+
+
+state 73
+
+    (81) control -> CONTINUE FOR .
+
+    $end            reduce using rule 81 (control -> CONTINUE FOR .)
+
+
+state 74
+
+    (75) return -> RETURN expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    $end            reduce using rule 75 (return -> RETURN expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 75
+
+    (17) defun_statement -> DEFUN ID . LPAREN params_list RPAREN EQUALS expression
+
+    LPAREN          shift and go to state 118
+
+
+state 76
+
+    (64) block_end -> END IF .
+
+    $end            reduce using rule 64 (block_end -> END IF .)
+
+
+state 77
+
+    (65) block_end -> END WHILE .
+
+    $end            reduce using rule 65 (block_end -> END WHILE .)
+
+
+state 78
+
+    (67) block_end -> END FOR .
+
+    $end            reduce using rule 67 (block_end -> END FOR .)
+
+
+state 79
+
+    (72) block_end -> END SUB .
+
+    $end            reduce using rule 72 (block_end -> END SUB .)
+
+
+state 80
+
+    (73) block_end -> END FUNCTION .
+
+    $end            reduce using rule 73 (block_end -> END FUNCTION .)
+
+
+state 81
+
+    (55) if_block_begin -> IF rel_expression . THEN
+    (30) rel_expression -> rel_expression . AND rel_expression
+    (31) rel_expression -> rel_expression . OR rel_expression
+
+    THEN            shift and go to state 119
+    AND             shift and go to state 106
+    OR              shift and go to state 107
+
+
+state 82
+
+    (68) block_end -> NEXT ID .
+
+    $end            reduce using rule 68 (block_end -> NEXT ID .)
+
+
+state 83
+
+    (70) block_end -> LOOP WHILE . rel_expression
+    (24) rel_expression -> . expression GREATER_THAN expression
+    (25) rel_expression -> . expression LESS_THAN expression
+    (26) rel_expression -> . expression EQUAL_GREATER_THAN expression
+    (27) rel_expression -> . expression EQUAL_LESS_THAN expression
+    (28) rel_expression -> . expression EQUALS expression
+    (29) rel_expression -> . expression NOT_EQUAL expression
+    (30) rel_expression -> . rel_expression AND rel_expression
+    (31) rel_expression -> . rel_expression OR rel_expression
+    (32) rel_expression -> . LPAREN rel_expression RPAREN
+    (33) rel_expression -> . NOT rel_expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    LPAREN          shift and go to state 68
+    NOT             shift and go to state 69
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    rel_expression                 shift and go to state 120
+    expression                     shift and go to state 67
+
+state 84
+
+    (71) block_end -> LOOP UNTIL . rel_expression
+    (24) rel_expression -> . expression GREATER_THAN expression
+    (25) rel_expression -> . expression LESS_THAN expression
+    (26) rel_expression -> . expression EQUAL_GREATER_THAN expression
+    (27) rel_expression -> . expression EQUAL_LESS_THAN expression
+    (28) rel_expression -> . expression EQUALS expression
+    (29) rel_expression -> . expression NOT_EQUAL expression
+    (30) rel_expression -> . rel_expression AND rel_expression
+    (31) rel_expression -> . rel_expression OR rel_expression
+    (32) rel_expression -> . LPAREN rel_expression RPAREN
+    (33) rel_expression -> . NOT rel_expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    LPAREN          shift and go to state 68
+    NOT             shift and go to state 69
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    rel_expression                 shift and go to state 121
+    expression                     shift and go to state 67
+
+state 85
+
+    (62) function_block_begin -> SUB ID . LPAREN params_list RPAREN
+
+    LPAREN          shift and go to state 122
+
+
+state 86
+
+    (63) function_block_begin -> FUNCTION ID . LPAREN params_list RPAREN
+
+    LPAREN          shift and go to state 123
+
+
+state 87
+
+    (57) elseif_block_begin -> ELSEIF rel_expression . THEN
+    (30) rel_expression -> rel_expression . AND rel_expression
+    (31) rel_expression -> rel_expression . OR rel_expression
+
+    THEN            shift and go to state 124
+    AND             shift and go to state 106
+    OR              shift and go to state 107
+
+
+state 88
+
+    (23) declare_array -> DIM ID . LPAREN expression RPAREN AS ID
+
+    LPAREN          shift and go to state 125
+
+
+state 89
+
+    (34) expression -> expression PLUS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    PLUS            reduce using rule 34 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 34 (expression -> expression PLUS expression .)
+    EXACTDIV        reduce using rule 34 (expression -> expression PLUS expression .)
+    AS              reduce using rule 34 (expression -> expression PLUS expression .)
+    $end            reduce using rule 34 (expression -> expression PLUS expression .)
+    COMMA           reduce using rule 34 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 34 (expression -> expression PLUS expression .)
+    RBRACE          reduce using rule 34 (expression -> expression PLUS expression .)
+    GREATER_THAN    reduce using rule 34 (expression -> expression PLUS expression .)
+    LESS_THAN       reduce using rule 34 (expression -> expression PLUS expression .)
+    EQUAL_GREATER_THAN reduce using rule 34 (expression -> expression PLUS expression .)
+    EQUAL_LESS_THAN reduce using rule 34 (expression -> expression PLUS expression .)
+    EQUALS          reduce using rule 34 (expression -> expression PLUS expression .)
+    NOT_EQUAL       reduce using rule 34 (expression -> expression PLUS expression .)
+    AND             reduce using rule 34 (expression -> expression PLUS expression .)
+    OR              reduce using rule 34 (expression -> expression PLUS expression .)
+    THEN            reduce using rule 34 (expression -> expression PLUS expression .)
+    TO              reduce using rule 34 (expression -> expression PLUS expression .)
+    STEP            reduce using rule 34 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    MOD             shift and go to state 50
+    EXP             shift and go to state 52
+
+  ! TIMES           [ reduce using rule 34 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 34 (expression -> expression PLUS expression .) ]
+  ! MOD             [ reduce using rule 34 (expression -> expression PLUS expression .) ]
+  ! EXP             [ reduce using rule 34 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! EXACTDIV        [ shift and go to state 49 ]
+  ! AS              [ shift and go to state 51 ]
+
+
+state 90
+
+    (35) expression -> expression MINUS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    PLUS            reduce using rule 35 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 35 (expression -> expression MINUS expression .)
+    EXACTDIV        reduce using rule 35 (expression -> expression MINUS expression .)
+    AS              reduce using rule 35 (expression -> expression MINUS expression .)
+    $end            reduce using rule 35 (expression -> expression MINUS expression .)
+    COMMA           reduce using rule 35 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 35 (expression -> expression MINUS expression .)
+    RBRACE          reduce using rule 35 (expression -> expression MINUS expression .)
+    GREATER_THAN    reduce using rule 35 (expression -> expression MINUS expression .)
+    LESS_THAN       reduce using rule 35 (expression -> expression MINUS expression .)
+    EQUAL_GREATER_THAN reduce using rule 35 (expression -> expression MINUS expression .)
+    EQUAL_LESS_THAN reduce using rule 35 (expression -> expression MINUS expression .)
+    EQUALS          reduce using rule 35 (expression -> expression MINUS expression .)
+    NOT_EQUAL       reduce using rule 35 (expression -> expression MINUS expression .)
+    AND             reduce using rule 35 (expression -> expression MINUS expression .)
+    OR              reduce using rule 35 (expression -> expression MINUS expression .)
+    THEN            reduce using rule 35 (expression -> expression MINUS expression .)
+    TO              reduce using rule 35 (expression -> expression MINUS expression .)
+    STEP            reduce using rule 35 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    MOD             shift and go to state 50
+    EXP             shift and go to state 52
+
+  ! TIMES           [ reduce using rule 35 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 35 (expression -> expression MINUS expression .) ]
+  ! MOD             [ reduce using rule 35 (expression -> expression MINUS expression .) ]
+  ! EXP             [ reduce using rule 35 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! EXACTDIV        [ shift and go to state 49 ]
+  ! AS              [ shift and go to state 51 ]
+
+
+state 91
+
+    (36) expression -> expression TIMES expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    PLUS            reduce using rule 36 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 36 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 36 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 36 (expression -> expression TIMES expression .)
+    EXACTDIV        reduce using rule 36 (expression -> expression TIMES expression .)
+    MOD             reduce using rule 36 (expression -> expression TIMES expression .)
+    AS              reduce using rule 36 (expression -> expression TIMES expression .)
+    $end            reduce using rule 36 (expression -> expression TIMES expression .)
+    COMMA           reduce using rule 36 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 36 (expression -> expression TIMES expression .)
+    RBRACE          reduce using rule 36 (expression -> expression TIMES expression .)
+    GREATER_THAN    reduce using rule 36 (expression -> expression TIMES expression .)
+    LESS_THAN       reduce using rule 36 (expression -> expression TIMES expression .)
+    EQUAL_GREATER_THAN reduce using rule 36 (expression -> expression TIMES expression .)
+    EQUAL_LESS_THAN reduce using rule 36 (expression -> expression TIMES expression .)
+    EQUALS          reduce using rule 36 (expression -> expression TIMES expression .)
+    NOT_EQUAL       reduce using rule 36 (expression -> expression TIMES expression .)
+    AND             reduce using rule 36 (expression -> expression TIMES expression .)
+    OR              reduce using rule 36 (expression -> expression TIMES expression .)
+    THEN            reduce using rule 36 (expression -> expression TIMES expression .)
+    TO              reduce using rule 36 (expression -> expression TIMES expression .)
+    STEP            reduce using rule 36 (expression -> expression TIMES expression .)
+    EXP             shift and go to state 52
+
+  ! EXP             [ reduce using rule 36 (expression -> expression TIMES expression .) ]
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! TIMES           [ shift and go to state 47 ]
+  ! DIVIDE          [ shift and go to state 48 ]
+  ! EXACTDIV        [ shift and go to state 49 ]
+  ! MOD             [ shift and go to state 50 ]
+  ! AS              [ shift and go to state 51 ]
+
+
+state 92
+
+    (37) expression -> expression DIVIDE expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    PLUS            reduce using rule 37 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 37 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 37 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 37 (expression -> expression DIVIDE expression .)
+    EXACTDIV        reduce using rule 37 (expression -> expression DIVIDE expression .)
+    MOD             reduce using rule 37 (expression -> expression DIVIDE expression .)
+    AS              reduce using rule 37 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 37 (expression -> expression DIVIDE expression .)
+    COMMA           reduce using rule 37 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 37 (expression -> expression DIVIDE expression .)
+    RBRACE          reduce using rule 37 (expression -> expression DIVIDE expression .)
+    GREATER_THAN    reduce using rule 37 (expression -> expression DIVIDE expression .)
+    LESS_THAN       reduce using rule 37 (expression -> expression DIVIDE expression .)
+    EQUAL_GREATER_THAN reduce using rule 37 (expression -> expression DIVIDE expression .)
+    EQUAL_LESS_THAN reduce using rule 37 (expression -> expression DIVIDE expression .)
+    EQUALS          reduce using rule 37 (expression -> expression DIVIDE expression .)
+    NOT_EQUAL       reduce using rule 37 (expression -> expression DIVIDE expression .)
+    AND             reduce using rule 37 (expression -> expression DIVIDE expression .)
+    OR              reduce using rule 37 (expression -> expression DIVIDE expression .)
+    THEN            reduce using rule 37 (expression -> expression DIVIDE expression .)
+    TO              reduce using rule 37 (expression -> expression DIVIDE expression .)
+    STEP            reduce using rule 37 (expression -> expression DIVIDE expression .)
+    EXP             shift and go to state 52
+
+  ! EXP             [ reduce using rule 37 (expression -> expression DIVIDE expression .) ]
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! TIMES           [ shift and go to state 47 ]
+  ! DIVIDE          [ shift and go to state 48 ]
+  ! EXACTDIV        [ shift and go to state 49 ]
+  ! MOD             [ shift and go to state 50 ]
+  ! AS              [ shift and go to state 51 ]
+
+
+state 93
+
+    (38) expression -> expression EXACTDIV expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EXACTDIV resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for AS resolved as shift
+  ! shift/reduce conflict for EXP resolved as shift
+    $end            reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    COMMA           reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    RPAREN          reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    RBRACE          reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    GREATER_THAN    reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    LESS_THAN       reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    EQUAL_GREATER_THAN reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    EQUAL_LESS_THAN reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    EQUALS          reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    NOT_EQUAL       reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    AND             reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    OR              reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    THEN            reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    TO              reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    STEP            reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+  ! PLUS            [ reduce using rule 38 (expression -> expression EXACTDIV expression .) ]
+  ! MINUS           [ reduce using rule 38 (expression -> expression EXACTDIV expression .) ]
+  ! TIMES           [ reduce using rule 38 (expression -> expression EXACTDIV expression .) ]
+  ! DIVIDE          [ reduce using rule 38 (expression -> expression EXACTDIV expression .) ]
+  ! EXACTDIV        [ reduce using rule 38 (expression -> expression EXACTDIV expression .) ]
+  ! MOD             [ reduce using rule 38 (expression -> expression EXACTDIV expression .) ]
+  ! AS              [ reduce using rule 38 (expression -> expression EXACTDIV expression .) ]
+  ! EXP             [ reduce using rule 38 (expression -> expression EXACTDIV expression .) ]
+
+
+state 94
+
+    (39) expression -> expression MOD expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    PLUS            reduce using rule 39 (expression -> expression MOD expression .)
+    MINUS           reduce using rule 39 (expression -> expression MOD expression .)
+    TIMES           reduce using rule 39 (expression -> expression MOD expression .)
+    DIVIDE          reduce using rule 39 (expression -> expression MOD expression .)
+    EXACTDIV        reduce using rule 39 (expression -> expression MOD expression .)
+    MOD             reduce using rule 39 (expression -> expression MOD expression .)
+    AS              reduce using rule 39 (expression -> expression MOD expression .)
+    $end            reduce using rule 39 (expression -> expression MOD expression .)
+    COMMA           reduce using rule 39 (expression -> expression MOD expression .)
+    RPAREN          reduce using rule 39 (expression -> expression MOD expression .)
+    RBRACE          reduce using rule 39 (expression -> expression MOD expression .)
+    GREATER_THAN    reduce using rule 39 (expression -> expression MOD expression .)
+    LESS_THAN       reduce using rule 39 (expression -> expression MOD expression .)
+    EQUAL_GREATER_THAN reduce using rule 39 (expression -> expression MOD expression .)
+    EQUAL_LESS_THAN reduce using rule 39 (expression -> expression MOD expression .)
+    EQUALS          reduce using rule 39 (expression -> expression MOD expression .)
+    NOT_EQUAL       reduce using rule 39 (expression -> expression MOD expression .)
+    AND             reduce using rule 39 (expression -> expression MOD expression .)
+    OR              reduce using rule 39 (expression -> expression MOD expression .)
+    THEN            reduce using rule 39 (expression -> expression MOD expression .)
+    TO              reduce using rule 39 (expression -> expression MOD expression .)
+    STEP            reduce using rule 39 (expression -> expression MOD expression .)
+    EXP             shift and go to state 52
+
+  ! EXP             [ reduce using rule 39 (expression -> expression MOD expression .) ]
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! TIMES           [ shift and go to state 47 ]
+  ! DIVIDE          [ shift and go to state 48 ]
+  ! EXACTDIV        [ shift and go to state 49 ]
+  ! MOD             [ shift and go to state 50 ]
+  ! AS              [ shift and go to state 51 ]
+
+
+state 95
+
+    (40) expression -> expression AS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    EXACTDIV        reduce using rule 40 (expression -> expression AS expression .)
+    AS              reduce using rule 40 (expression -> expression AS expression .)
+    $end            reduce using rule 40 (expression -> expression AS expression .)
+    COMMA           reduce using rule 40 (expression -> expression AS expression .)
+    RPAREN          reduce using rule 40 (expression -> expression AS expression .)
+    RBRACE          reduce using rule 40 (expression -> expression AS expression .)
+    GREATER_THAN    reduce using rule 40 (expression -> expression AS expression .)
+    LESS_THAN       reduce using rule 40 (expression -> expression AS expression .)
+    EQUAL_GREATER_THAN reduce using rule 40 (expression -> expression AS expression .)
+    EQUAL_LESS_THAN reduce using rule 40 (expression -> expression AS expression .)
+    EQUALS          reduce using rule 40 (expression -> expression AS expression .)
+    NOT_EQUAL       reduce using rule 40 (expression -> expression AS expression .)
+    AND             reduce using rule 40 (expression -> expression AS expression .)
+    OR              reduce using rule 40 (expression -> expression AS expression .)
+    THEN            reduce using rule 40 (expression -> expression AS expression .)
+    TO              reduce using rule 40 (expression -> expression AS expression .)
+    STEP            reduce using rule 40 (expression -> expression AS expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    MOD             shift and go to state 50
+    EXP             shift and go to state 52
+
+  ! PLUS            [ reduce using rule 40 (expression -> expression AS expression .) ]
+  ! MINUS           [ reduce using rule 40 (expression -> expression AS expression .) ]
+  ! TIMES           [ reduce using rule 40 (expression -> expression AS expression .) ]
+  ! DIVIDE          [ reduce using rule 40 (expression -> expression AS expression .) ]
+  ! MOD             [ reduce using rule 40 (expression -> expression AS expression .) ]
+  ! EXP             [ reduce using rule 40 (expression -> expression AS expression .) ]
+  ! EXACTDIV        [ shift and go to state 49 ]
+  ! AS              [ shift and go to state 51 ]
+
+
+state 96
+
+    (41) expression -> expression EXP expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    PLUS            reduce using rule 41 (expression -> expression EXP expression .)
+    MINUS           reduce using rule 41 (expression -> expression EXP expression .)
+    TIMES           reduce using rule 41 (expression -> expression EXP expression .)
+    DIVIDE          reduce using rule 41 (expression -> expression EXP expression .)
+    EXACTDIV        reduce using rule 41 (expression -> expression EXP expression .)
+    MOD             reduce using rule 41 (expression -> expression EXP expression .)
+    AS              reduce using rule 41 (expression -> expression EXP expression .)
+    EXP             reduce using rule 41 (expression -> expression EXP expression .)
+    $end            reduce using rule 41 (expression -> expression EXP expression .)
+    COMMA           reduce using rule 41 (expression -> expression EXP expression .)
+    RPAREN          reduce using rule 41 (expression -> expression EXP expression .)
+    RBRACE          reduce using rule 41 (expression -> expression EXP expression .)
+    GREATER_THAN    reduce using rule 41 (expression -> expression EXP expression .)
+    LESS_THAN       reduce using rule 41 (expression -> expression EXP expression .)
+    EQUAL_GREATER_THAN reduce using rule 41 (expression -> expression EXP expression .)
+    EQUAL_LESS_THAN reduce using rule 41 (expression -> expression EXP expression .)
+    EQUALS          reduce using rule 41 (expression -> expression EXP expression .)
+    NOT_EQUAL       reduce using rule 41 (expression -> expression EXP expression .)
+    AND             reduce using rule 41 (expression -> expression EXP expression .)
+    OR              reduce using rule 41 (expression -> expression EXP expression .)
+    THEN            reduce using rule 41 (expression -> expression EXP expression .)
+    TO              reduce using rule 41 (expression -> expression EXP expression .)
+    STEP            reduce using rule 41 (expression -> expression EXP expression .)
+
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! TIMES           [ shift and go to state 47 ]
+  ! DIVIDE          [ shift and go to state 48 ]
+  ! EXACTDIV        [ shift and go to state 49 ]
+  ! MOD             [ shift and go to state 50 ]
+  ! AS              [ shift and go to state 51 ]
+  ! EXP             [ shift and go to state 52 ]
+
+
+state 97
+
+    (44) expression -> ID LPAREN . RPAREN
+    (45) expression -> ID LPAREN . args_list RPAREN
+    (13) args_list -> . args_list COMMA expression
+    (14) args_list -> . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    RPAREN          shift and go to state 100
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    args_list                      shift and go to state 101
+    expression                     shift and go to state 56
+
+state 98
+
+    (19) assignment -> ID EQUALS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    $end            reduce using rule 19 (assignment -> ID EQUALS expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 99
+
+    (21) assignment -> ID LPAREN expression . RPAREN EQUALS expression
+    (43) expression -> LPAREN expression . RPAREN
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+    (14) args_list -> expression .
+
+  ! shift/reduce conflict for RPAREN resolved as shift
+    RPAREN          shift and go to state 126
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+    COMMA           reduce using rule 14 (args_list -> expression .)
+
+  ! RPAREN          [ reduce using rule 14 (args_list -> expression .) ]
+
+
+state 100
+
+    (44) expression -> ID LPAREN RPAREN .
+
+    PLUS            reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    MINUS           reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    TIMES           reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    DIVIDE          reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    EXACTDIV        reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    MOD             reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    AS              reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    EXP             reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    $end            reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    COMMA           reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    RPAREN          reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    RBRACE          reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    GREATER_THAN    reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    LESS_THAN       reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    EQUAL_GREATER_THAN reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    EQUAL_LESS_THAN reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    EQUALS          reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    NOT_EQUAL       reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    AND             reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    OR              reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    THEN            reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    TO              reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    STEP            reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+
+
+state 101
+
+    (45) expression -> ID LPAREN args_list . RPAREN
+    (13) args_list -> args_list . COMMA expression
+
+    RPAREN          shift and go to state 127
+    COMMA           shift and go to state 102
+
+
+state 102
+
+    (13) args_list -> args_list COMMA . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 128
+
+state 103
+
+    (20) assignment -> LET ID EQUALS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 129
+
+state 104
+
+    (43) expression -> LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    EXACTDIV        reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    MOD             reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    AS              reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    EXP             reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    RBRACE          reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    GREATER_THAN    reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    LESS_THAN       reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    EQUAL_GREATER_THAN reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    EQUAL_LESS_THAN reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    EQUALS          reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    NOT_EQUAL       reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    AND             reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    THEN            reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    TO              reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    STEP            reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+
+
+state 105
+
+    (50) expression -> LBRACE args_list RBRACE .
+
+    PLUS            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    MINUS           reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    TIMES           reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    DIVIDE          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EXACTDIV        reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    MOD             reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    AS              reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EXP             reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    $end            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    COMMA           reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    RPAREN          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    RBRACE          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    GREATER_THAN    reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    LESS_THAN       reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EQUAL_GREATER_THAN reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EQUAL_LESS_THAN reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EQUALS          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    NOT_EQUAL       reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    AND             reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    OR              reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    THEN            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    TO              reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    STEP            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+
+
+state 106
+
+    (30) rel_expression -> rel_expression AND . rel_expression
+    (24) rel_expression -> . expression GREATER_THAN expression
+    (25) rel_expression -> . expression LESS_THAN expression
+    (26) rel_expression -> . expression EQUAL_GREATER_THAN expression
+    (27) rel_expression -> . expression EQUAL_LESS_THAN expression
+    (28) rel_expression -> . expression EQUALS expression
+    (29) rel_expression -> . expression NOT_EQUAL expression
+    (30) rel_expression -> . rel_expression AND rel_expression
+    (31) rel_expression -> . rel_expression OR rel_expression
+    (32) rel_expression -> . LPAREN rel_expression RPAREN
+    (33) rel_expression -> . NOT rel_expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    LPAREN          shift and go to state 68
+    NOT             shift and go to state 69
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    rel_expression                 shift and go to state 130
+    expression                     shift and go to state 67
+
+state 107
+
+    (31) rel_expression -> rel_expression OR . rel_expression
+    (24) rel_expression -> . expression GREATER_THAN expression
+    (25) rel_expression -> . expression LESS_THAN expression
+    (26) rel_expression -> . expression EQUAL_GREATER_THAN expression
+    (27) rel_expression -> . expression EQUAL_LESS_THAN expression
+    (28) rel_expression -> . expression EQUALS expression
+    (29) rel_expression -> . expression NOT_EQUAL expression
+    (30) rel_expression -> . rel_expression AND rel_expression
+    (31) rel_expression -> . rel_expression OR rel_expression
+    (32) rel_expression -> . LPAREN rel_expression RPAREN
+    (33) rel_expression -> . NOT rel_expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    LPAREN          shift and go to state 68
+    NOT             shift and go to state 69
+    MINUS           shift and go to state 19
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    rel_expression                 shift and go to state 131
+    expression                     shift and go to state 67
+
+state 108
+
+    (24) rel_expression -> expression GREATER_THAN . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 132
+
+state 109
+
+    (25) rel_expression -> expression LESS_THAN . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 133
+
+state 110
+
+    (26) rel_expression -> expression EQUAL_GREATER_THAN . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 134
+
+state 111
+
+    (27) rel_expression -> expression EQUAL_LESS_THAN . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 135
+
+state 112
+
+    (28) rel_expression -> expression EQUALS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 136
+
+state 113
+
+    (29) rel_expression -> expression NOT_EQUAL . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 137
+
+state 114
+
+    (32) rel_expression -> LPAREN rel_expression . RPAREN
+    (30) rel_expression -> rel_expression . AND rel_expression
+    (31) rel_expression -> rel_expression . OR rel_expression
+
+    RPAREN          shift and go to state 138
+    AND             shift and go to state 106
+    OR              shift and go to state 107
+
+
+state 115
+
+    (43) expression -> LPAREN expression . RPAREN
+    (24) rel_expression -> expression . GREATER_THAN expression
+    (25) rel_expression -> expression . LESS_THAN expression
+    (26) rel_expression -> expression . EQUAL_GREATER_THAN expression
+    (27) rel_expression -> expression . EQUAL_LESS_THAN expression
+    (28) rel_expression -> expression . EQUALS expression
+    (29) rel_expression -> expression . NOT_EQUAL expression
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    RPAREN          shift and go to state 104
+    GREATER_THAN    shift and go to state 108
+    LESS_THAN       shift and go to state 109
+    EQUAL_GREATER_THAN shift and go to state 110
+    EQUAL_LESS_THAN shift and go to state 111
+    EQUALS          shift and go to state 112
+    NOT_EQUAL       shift and go to state 113
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 116
+
+    (33) rel_expression -> NOT rel_expression .
+    (30) rel_expression -> rel_expression . AND rel_expression
+    (31) rel_expression -> rel_expression . OR rel_expression
+
+    AND             reduce using rule 33 (rel_expression -> NOT rel_expression .)
+    OR              reduce using rule 33 (rel_expression -> NOT rel_expression .)
+    $end            reduce using rule 33 (rel_expression -> NOT rel_expression .)
+    THEN            reduce using rule 33 (rel_expression -> NOT rel_expression .)
+    RPAREN          reduce using rule 33 (rel_expression -> NOT rel_expression .)
+
+  ! AND             [ shift and go to state 106 ]
+  ! OR              [ shift and go to state 107 ]
+
+
+state 117
+
+    (60) for_block_begin -> FOR ID EQUALS . expression TO expression
+    (61) for_block_begin -> FOR ID EQUALS . expression TO expression STEP expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 139
+
+state 118
+
+    (17) defun_statement -> DEFUN ID LPAREN . params_list RPAREN EQUALS expression
+    (15) params_list -> . params_list COMMA ID
+    (16) params_list -> . ID
+
+    ID              shift and go to state 140
+
+    params_list                    shift and go to state 141
+
+state 119
+
+    (55) if_block_begin -> IF rel_expression THEN .
+
+    $end            reduce using rule 55 (if_block_begin -> IF rel_expression THEN .)
+
+
+state 120
+
+    (70) block_end -> LOOP WHILE rel_expression .
+    (30) rel_expression -> rel_expression . AND rel_expression
+    (31) rel_expression -> rel_expression . OR rel_expression
+
+    $end            reduce using rule 70 (block_end -> LOOP WHILE rel_expression .)
+    AND             shift and go to state 106
+    OR              shift and go to state 107
+
+
+state 121
+
+    (71) block_end -> LOOP UNTIL rel_expression .
+    (30) rel_expression -> rel_expression . AND rel_expression
+    (31) rel_expression -> rel_expression . OR rel_expression
+
+    $end            reduce using rule 71 (block_end -> LOOP UNTIL rel_expression .)
+    AND             shift and go to state 106
+    OR              shift and go to state 107
+
+
+state 122
+
+    (62) function_block_begin -> SUB ID LPAREN . params_list RPAREN
+    (15) params_list -> . params_list COMMA ID
+    (16) params_list -> . ID
+
+    ID              shift and go to state 140
+
+    params_list                    shift and go to state 142
+
+state 123
+
+    (63) function_block_begin -> FUNCTION ID LPAREN . params_list RPAREN
+    (15) params_list -> . params_list COMMA ID
+    (16) params_list -> . ID
+
+    ID              shift and go to state 140
+
+    params_list                    shift and go to state 143
+
+state 124
+
+    (57) elseif_block_begin -> ELSEIF rel_expression THEN .
+
+    $end            reduce using rule 57 (elseif_block_begin -> ELSEIF rel_expression THEN .)
+
+
+state 125
+
+    (23) declare_array -> DIM ID LPAREN . expression RPAREN AS ID
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 144
+
+state 126
+
+    (21) assignment -> ID LPAREN expression RPAREN . EQUALS expression
+    (43) expression -> LPAREN expression RPAREN .
+
+    EQUALS          shift and go to state 145
+    PLUS            reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    EXACTDIV        reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    MOD             reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    AS              reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    EXP             reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+
+
+state 127
+
+    (45) expression -> ID LPAREN args_list RPAREN .
+
+    PLUS            reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    MINUS           reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    TIMES           reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    DIVIDE          reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    EXACTDIV        reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    MOD             reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    AS              reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    EXP             reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    $end            reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    COMMA           reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    RPAREN          reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    RBRACE          reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    GREATER_THAN    reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    LESS_THAN       reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    EQUAL_GREATER_THAN reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    EQUAL_LESS_THAN reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    EQUALS          reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    NOT_EQUAL       reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    AND             reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    OR              reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    THEN            reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    TO              reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    STEP            reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+
+
+state 128
+
+    (13) args_list -> args_list COMMA expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    COMMA           reduce using rule 13 (args_list -> args_list COMMA expression .)
+    $end            reduce using rule 13 (args_list -> args_list COMMA expression .)
+    RBRACE          reduce using rule 13 (args_list -> args_list COMMA expression .)
+    RPAREN          reduce using rule 13 (args_list -> args_list COMMA expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 129
+
+    (20) assignment -> LET ID EQUALS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    $end            reduce using rule 20 (assignment -> LET ID EQUALS expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 130
+
+    (30) rel_expression -> rel_expression AND rel_expression .
+    (30) rel_expression -> rel_expression . AND rel_expression
+    (31) rel_expression -> rel_expression . OR rel_expression
+
+    AND             reduce using rule 30 (rel_expression -> rel_expression AND rel_expression .)
+    OR              reduce using rule 30 (rel_expression -> rel_expression AND rel_expression .)
+    $end            reduce using rule 30 (rel_expression -> rel_expression AND rel_expression .)
+    THEN            reduce using rule 30 (rel_expression -> rel_expression AND rel_expression .)
+    RPAREN          reduce using rule 30 (rel_expression -> rel_expression AND rel_expression .)
+
+  ! AND             [ shift and go to state 106 ]
+  ! OR              [ shift and go to state 107 ]
+
+
+state 131
+
+    (31) rel_expression -> rel_expression OR rel_expression .
+    (30) rel_expression -> rel_expression . AND rel_expression
+    (31) rel_expression -> rel_expression . OR rel_expression
+
+    AND             reduce using rule 31 (rel_expression -> rel_expression OR rel_expression .)
+    OR              reduce using rule 31 (rel_expression -> rel_expression OR rel_expression .)
+    $end            reduce using rule 31 (rel_expression -> rel_expression OR rel_expression .)
+    THEN            reduce using rule 31 (rel_expression -> rel_expression OR rel_expression .)
+    RPAREN          reduce using rule 31 (rel_expression -> rel_expression OR rel_expression .)
+
+  ! AND             [ shift and go to state 106 ]
+  ! OR              [ shift and go to state 107 ]
+
+
+state 132
+
+    (24) rel_expression -> expression GREATER_THAN expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    AND             reduce using rule 24 (rel_expression -> expression GREATER_THAN expression .)
+    OR              reduce using rule 24 (rel_expression -> expression GREATER_THAN expression .)
+    $end            reduce using rule 24 (rel_expression -> expression GREATER_THAN expression .)
+    THEN            reduce using rule 24 (rel_expression -> expression GREATER_THAN expression .)
+    RPAREN          reduce using rule 24 (rel_expression -> expression GREATER_THAN expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 133
+
+    (25) rel_expression -> expression LESS_THAN expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    AND             reduce using rule 25 (rel_expression -> expression LESS_THAN expression .)
+    OR              reduce using rule 25 (rel_expression -> expression LESS_THAN expression .)
+    $end            reduce using rule 25 (rel_expression -> expression LESS_THAN expression .)
+    THEN            reduce using rule 25 (rel_expression -> expression LESS_THAN expression .)
+    RPAREN          reduce using rule 25 (rel_expression -> expression LESS_THAN expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 134
+
+    (26) rel_expression -> expression EQUAL_GREATER_THAN expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    AND             reduce using rule 26 (rel_expression -> expression EQUAL_GREATER_THAN expression .)
+    OR              reduce using rule 26 (rel_expression -> expression EQUAL_GREATER_THAN expression .)
+    $end            reduce using rule 26 (rel_expression -> expression EQUAL_GREATER_THAN expression .)
+    THEN            reduce using rule 26 (rel_expression -> expression EQUAL_GREATER_THAN expression .)
+    RPAREN          reduce using rule 26 (rel_expression -> expression EQUAL_GREATER_THAN expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 135
+
+    (27) rel_expression -> expression EQUAL_LESS_THAN expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    AND             reduce using rule 27 (rel_expression -> expression EQUAL_LESS_THAN expression .)
+    OR              reduce using rule 27 (rel_expression -> expression EQUAL_LESS_THAN expression .)
+    $end            reduce using rule 27 (rel_expression -> expression EQUAL_LESS_THAN expression .)
+    THEN            reduce using rule 27 (rel_expression -> expression EQUAL_LESS_THAN expression .)
+    RPAREN          reduce using rule 27 (rel_expression -> expression EQUAL_LESS_THAN expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 136
+
+    (28) rel_expression -> expression EQUALS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    AND             reduce using rule 28 (rel_expression -> expression EQUALS expression .)
+    OR              reduce using rule 28 (rel_expression -> expression EQUALS expression .)
+    $end            reduce using rule 28 (rel_expression -> expression EQUALS expression .)
+    THEN            reduce using rule 28 (rel_expression -> expression EQUALS expression .)
+    RPAREN          reduce using rule 28 (rel_expression -> expression EQUALS expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 137
+
+    (29) rel_expression -> expression NOT_EQUAL expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    AND             reduce using rule 29 (rel_expression -> expression NOT_EQUAL expression .)
+    OR              reduce using rule 29 (rel_expression -> expression NOT_EQUAL expression .)
+    $end            reduce using rule 29 (rel_expression -> expression NOT_EQUAL expression .)
+    THEN            reduce using rule 29 (rel_expression -> expression NOT_EQUAL expression .)
+    RPAREN          reduce using rule 29 (rel_expression -> expression NOT_EQUAL expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 138
+
+    (32) rel_expression -> LPAREN rel_expression RPAREN .
+
+    AND             reduce using rule 32 (rel_expression -> LPAREN rel_expression RPAREN .)
+    OR              reduce using rule 32 (rel_expression -> LPAREN rel_expression RPAREN .)
+    $end            reduce using rule 32 (rel_expression -> LPAREN rel_expression RPAREN .)
+    THEN            reduce using rule 32 (rel_expression -> LPAREN rel_expression RPAREN .)
+    RPAREN          reduce using rule 32 (rel_expression -> LPAREN rel_expression RPAREN .)
+
+
+state 139
+
+    (60) for_block_begin -> FOR ID EQUALS expression . TO expression
+    (61) for_block_begin -> FOR ID EQUALS expression . TO expression STEP expression
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    TO              shift and go to state 146
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 140
+
+    (16) params_list -> ID .
+
+    RPAREN          reduce using rule 16 (params_list -> ID .)
+    COMMA           reduce using rule 16 (params_list -> ID .)
+
+
+state 141
+
+    (17) defun_statement -> DEFUN ID LPAREN params_list . RPAREN EQUALS expression
+    (15) params_list -> params_list . COMMA ID
+
+    RPAREN          shift and go to state 147
+    COMMA           shift and go to state 148
+
+
+state 142
+
+    (62) function_block_begin -> SUB ID LPAREN params_list . RPAREN
+    (15) params_list -> params_list . COMMA ID
+
+    RPAREN          shift and go to state 149
+    COMMA           shift and go to state 148
+
+
+state 143
+
+    (63) function_block_begin -> FUNCTION ID LPAREN params_list . RPAREN
+    (15) params_list -> params_list . COMMA ID
+
+    RPAREN          shift and go to state 150
+    COMMA           shift and go to state 148
+
+
+state 144
+
+    (23) declare_array -> DIM ID LPAREN expression . RPAREN AS ID
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    RPAREN          shift and go to state 151
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 145
+
+    (21) assignment -> ID LPAREN expression RPAREN EQUALS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 152
+
+state 146
+
+    (60) for_block_begin -> FOR ID EQUALS expression TO . expression
+    (61) for_block_begin -> FOR ID EQUALS expression TO . expression STEP expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 153
+
+state 147
+
+    (17) defun_statement -> DEFUN ID LPAREN params_list RPAREN . EQUALS expression
+
+    EQUALS          shift and go to state 154
+
+
+state 148
+
+    (15) params_list -> params_list COMMA . ID
+
+    ID              shift and go to state 155
+
+
+state 149
+
+    (62) function_block_begin -> SUB ID LPAREN params_list RPAREN .
+
+    $end            reduce using rule 62 (function_block_begin -> SUB ID LPAREN params_list RPAREN .)
+
+
+state 150
+
+    (63) function_block_begin -> FUNCTION ID LPAREN params_list RPAREN .
+
+    $end            reduce using rule 63 (function_block_begin -> FUNCTION ID LPAREN params_list RPAREN .)
+
+
+state 151
+
+    (23) declare_array -> DIM ID LPAREN expression RPAREN . AS ID
+
+    AS              shift and go to state 156
+
+
+state 152
+
+    (21) assignment -> ID LPAREN expression RPAREN EQUALS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    $end            reduce using rule 21 (assignment -> ID LPAREN expression RPAREN EQUALS expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 153
+
+    (60) for_block_begin -> FOR ID EQUALS expression TO expression .
+    (61) for_block_begin -> FOR ID EQUALS expression TO expression . STEP expression
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    $end            reduce using rule 60 (for_block_begin -> FOR ID EQUALS expression TO expression .)
+    STEP            shift and go to state 157
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 154
+
+    (17) defun_statement -> DEFUN ID LPAREN params_list RPAREN EQUALS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 158
+
+state 155
+
+    (15) params_list -> params_list COMMA ID .
+
+    RPAREN          reduce using rule 15 (params_list -> params_list COMMA ID .)
+    COMMA           reduce using rule 15 (params_list -> params_list COMMA ID .)
+
+
+state 156
+
+    (23) declare_array -> DIM ID LPAREN expression RPAREN AS . ID
+
+    ID              shift and go to state 159
+
+
+state 157
+
+    (61) for_block_begin -> FOR ID EQUALS expression TO expression STEP . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 20
+    DECIMAL         shift and go to state 21
+    STRING          shift and go to state 22
+    LBRACE          shift and go to state 23
+
+    expression                     shift and go to state 160
+
+state 158
+
+    (17) defun_statement -> DEFUN ID LPAREN params_list RPAREN EQUALS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    $end            reduce using rule 17 (defun_statement -> DEFUN ID LPAREN params_list RPAREN EQUALS expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+
+state 159
+
+    (23) declare_array -> DIM ID LPAREN expression RPAREN AS ID .
+
+    $end            reduce using rule 23 (declare_array -> DIM ID LPAREN expression RPAREN AS ID .)
+
+
+state 160
+
+    (61) for_block_begin -> FOR ID EQUALS expression TO expression STEP expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    $end            reduce using rule 61 (for_block_begin -> FOR ID EQUALS expression TO expression STEP expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+    EXACTDIV        shift and go to state 49
+    MOD             shift and go to state 50
+    AS              shift and go to state 51
+    EXP             shift and go to state 52
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for MINUS in state 15 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 93 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 93 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 93 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 93 resolved as shift
+WARNING: shift/reduce conflict for EXACTDIV in state 93 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 93 resolved as shift
+WARNING: shift/reduce conflict for AS in state 93 resolved as shift
+WARNING: shift/reduce conflict for EXP in state 93 resolved as shift
+WARNING: shift/reduce conflict for RPAREN in state 99 resolved as shift
