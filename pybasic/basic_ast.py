@@ -1,5 +1,7 @@
 #! python3
 import runpy
+import sys
+from os import path
 
 from . import basic_lib
 from . import basic_operators
@@ -159,7 +161,9 @@ class ASTNode:
             return ASTControl('return', self.tree[0].run())
 
         elif self.value == '<RUN_PY>':
-            runpy.run_path(self.tree[0])
+            file_name = self.tree[0]
+            if path.isfile(file_name):
+                runpy.run_path(file_name)
 
     def run(self):
         if self.type == 'flag':

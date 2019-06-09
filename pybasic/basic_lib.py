@@ -82,17 +82,22 @@ global_table.reflect('trim$', lambda s: s.strip())
 
 # utilities
 # FUNCTION CLS() ' clear the screen
-@global_table.register('cls')
-def basic_cls(n):
+@global_table.reflect('cls')
+def basic_cls():
     if platform.system() == 'Windows':
         os.system('cls')
     else:
         os.system('clear')
 
 
+
 # FUNCTION SLEEP(X) ' suspend for X milliseconds
 global_table.reflect('sleep', time.sleep)
 
+# FUNCTION PAUSE() ' pause until Enter key is pressed
+@global_table.reflect('pause')
+def basic_pause():
+    input()
 
 # FUNCTION SWAP(A ByRef, B ByRef) ' swap two variables
 @global_table.register('swap')

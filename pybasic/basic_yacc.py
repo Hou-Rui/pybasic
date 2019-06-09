@@ -1,5 +1,6 @@
 #! python3
 import readline
+import sys
 from os import path
 
 import ply.yacc as yacc
@@ -29,7 +30,6 @@ def p_singleline_statement(p):
     '''
     statement : assignment
               | declaration
-              | expression
               | funcall
               | control
               | return
@@ -37,6 +37,14 @@ def p_singleline_statement(p):
     '''
     current_root = root_stack.top()
     p[0] = p[1]
+    current_root.add(p[0])
+
+def p_expression(p):
+    '''
+    statement : expression
+    '''
+    current_root = root_stack.top()
+    p[0] = ASTNode(type='funcall', value=p[1].value)
     current_root.add(p[0])
 
 def p_multiline_begin_statement(p):
@@ -454,6 +462,7 @@ def p_use_statement(p):
     '''
     statement : USE ID
     '''
+    lib_module_name = '%s/lib/%s.py' % (sys.path[0], p[2])
     py_module_name = '%s.py' % p[2]
     basic_module_name = '%s.bas' % p[2]
     if path.isfile(basic_module_name):
@@ -466,6 +475,11 @@ def p_use_statement(p):
         current_root = root_stack.top()
         p[0] = ASTNode(type='flag', value='<RUN_PY>')
         p[0].add(py_module_name)
+        current_root.add(p[0])
+    elif path.isfile(lib_module_name):
+        current_root = root_stack.top()
+        p[0] = ASTNode(type='flag', value='<RUN_PY>')
+        p[0].add(lib_module_name)
         current_root.add(p[0])
     else:
         raise BasicError('No such module: %s' % p[2])

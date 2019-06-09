@@ -5,11 +5,11 @@ Grammar
 Rule 0     S' -> statement
 Rule 1     statement -> assignment
 Rule 2     statement -> declaration
-Rule 3     statement -> expression
-Rule 4     statement -> funcall
-Rule 5     statement -> control
-Rule 6     statement -> return
-Rule 7     statement -> defun_statement
+Rule 3     statement -> funcall
+Rule 4     statement -> control
+Rule 5     statement -> return
+Rule 6     statement -> defun_statement
+Rule 7     statement -> expression
 Rule 8     statement -> block_begin
 Rule 9     statement -> block_end
 Rule 10    statement -> if_block_begin
@@ -145,21 +145,21 @@ args_list            : 13 18 45 50
 assignment           : 1
 block_begin          : 8
 block_end            : 9
-control              : 5
+control              : 4
 declaration          : 2
 declare_array        : 22
-defun_statement      : 7
+defun_statement      : 6
 do_block_begin       : 53
 else_statement       : 12
 elseif_block_begin   : 11
-expression           : 3 13 14 17 19 20 21 21 23 24 24 25 25 26 26 27 27 28 28 29 29 34 34 35 35 36 36 37 37 38 38 39 39 40 40 41 41 42 43 60 60 61 61 61 75
+expression           : 7 13 14 17 19 20 21 21 23 24 24 25 25 26 26 27 27 28 28 29 29 34 34 35 35 36 36 37 37 38 38 39 39 40 40 41 41 42 43 60 60 61 61 61 75
 for_block_begin      : 52
-funcall              : 4
+funcall              : 3
 function_block_begin : 54
 if_block_begin       : 10
 params_list          : 15 17 62 63
 rel_expression       : 30 30 31 31 32 33 55 57 58 70 71
-return               : 6
+return               : 5
 statement            : 0
 while_block_begin    : 51
 
@@ -170,11 +170,11 @@ state 0
     (0) S' -> . statement
     (1) statement -> . assignment
     (2) statement -> . declaration
-    (3) statement -> . expression
-    (4) statement -> . funcall
-    (5) statement -> . control
-    (6) statement -> . return
-    (7) statement -> . defun_statement
+    (3) statement -> . funcall
+    (4) statement -> . control
+    (5) statement -> . return
+    (6) statement -> . defun_statement
+    (7) statement -> . expression
     (8) statement -> . block_begin
     (9) statement -> . block_end
     (10) statement -> . if_block_begin
@@ -185,6 +185,16 @@ state 0
     (20) assignment -> . LET ID EQUALS expression
     (21) assignment -> . ID LPAREN expression RPAREN EQUALS expression
     (22) declaration -> . declare_array
+    (18) funcall -> . ID args_list
+    (76) control -> . EXIT WHILE
+    (77) control -> . EXIT DO
+    (78) control -> . EXIT FOR
+    (79) control -> . CONTINUE WHILE
+    (80) control -> . CONTINUE DO
+    (81) control -> . CONTINUE FOR
+    (74) return -> . RETURN
+    (75) return -> . RETURN expression
+    (17) defun_statement -> . DEFUN ID LPAREN params_list RPAREN EQUALS expression
     (34) expression -> . expression PLUS expression
     (35) expression -> . expression MINUS expression
     (36) expression -> . expression TIMES expression
@@ -202,16 +212,6 @@ state 0
     (48) expression -> . STRING
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
-    (18) funcall -> . ID args_list
-    (76) control -> . EXIT WHILE
-    (77) control -> . EXIT DO
-    (78) control -> . EXIT FOR
-    (79) control -> . CONTINUE WHILE
-    (80) control -> . CONTINUE DO
-    (81) control -> . CONTINUE FOR
-    (74) return -> . RETURN
-    (75) return -> . RETURN expression
-    (17) defun_statement -> . DEFUN ID LPAREN params_list RPAREN EQUALS expression
     (51) block_begin -> . while_block_begin
     (52) block_begin -> . for_block_begin
     (53) block_begin -> . do_block_begin
@@ -240,16 +240,16 @@ state 0
     USE             shift and go to state 14
     ID              shift and go to state 15
     LET             shift and go to state 16
-    MINUS           shift and go to state 19
+    EXIT            shift and go to state 19
+    CONTINUE        shift and go to state 23
+    RETURN          shift and go to state 24
+    DEFUN           shift and go to state 25
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
-    EXIT            shift and go to state 24
-    CONTINUE        shift and go to state 28
-    RETURN          shift and go to state 29
-    DEFUN           shift and go to state 30
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
     END             shift and go to state 35
     WEND            shift and go to state 37
     NEXT            shift and go to state 38
@@ -258,20 +258,20 @@ state 0
     ELSEIF          shift and go to state 42
     ELSE            shift and go to state 43
     DIM             shift and go to state 44
-    WHILE           shift and go to state 25
-    FOR             shift and go to state 27
-    DO              shift and go to state 26
+    WHILE           shift and go to state 20
+    FOR             shift and go to state 22
+    DO              shift and go to state 21
     SUB             shift and go to state 40
     FUNCTION        shift and go to state 41
 
     statement                      shift and go to state 1
     assignment                     shift and go to state 2
     declaration                    shift and go to state 3
-    expression                     shift and go to state 4
-    funcall                        shift and go to state 5
-    control                        shift and go to state 6
-    return                         shift and go to state 7
-    defun_statement                shift and go to state 8
+    funcall                        shift and go to state 4
+    control                        shift and go to state 5
+    return                         shift and go to state 6
+    defun_statement                shift and go to state 7
+    expression                     shift and go to state 8
     block_begin                    shift and go to state 9
     block_end                      shift and go to state 10
     if_block_begin                 shift and go to state 11
@@ -305,7 +305,35 @@ state 3
 
 state 4
 
-    (3) statement -> expression .
+    (3) statement -> funcall .
+
+    $end            reduce using rule 3 (statement -> funcall .)
+
+
+state 5
+
+    (4) statement -> control .
+
+    $end            reduce using rule 4 (statement -> control .)
+
+
+state 6
+
+    (5) statement -> return .
+
+    $end            reduce using rule 5 (statement -> return .)
+
+
+state 7
+
+    (6) statement -> defun_statement .
+
+    $end            reduce using rule 6 (statement -> defun_statement .)
+
+
+state 8
+
+    (7) statement -> expression .
     (34) expression -> expression . PLUS expression
     (35) expression -> expression . MINUS expression
     (36) expression -> expression . TIMES expression
@@ -315,7 +343,7 @@ state 4
     (40) expression -> expression . AS expression
     (41) expression -> expression . EXP expression
 
-    $end            reduce using rule 3 (statement -> expression .)
+    $end            reduce using rule 7 (statement -> expression .)
     PLUS            shift and go to state 45
     MINUS           shift and go to state 46
     TIMES           shift and go to state 47
@@ -324,34 +352,6 @@ state 4
     MOD             shift and go to state 50
     AS              shift and go to state 51
     EXP             shift and go to state 52
-
-
-state 5
-
-    (4) statement -> funcall .
-
-    $end            reduce using rule 4 (statement -> funcall .)
-
-
-state 6
-
-    (5) statement -> control .
-
-    $end            reduce using rule 5 (statement -> control .)
-
-
-state 7
-
-    (6) statement -> return .
-
-    $end            reduce using rule 6 (statement -> return .)
-
-
-state 8
-
-    (7) statement -> defun_statement .
-
-    $end            reduce using rule 7 (statement -> defun_statement .)
 
 
 state 9
@@ -400,10 +400,10 @@ state 15
 
     (19) assignment -> ID . EQUALS expression
     (21) assignment -> ID . LPAREN expression RPAREN EQUALS expression
+    (18) funcall -> ID . args_list
     (44) expression -> ID . LPAREN RPAREN
     (45) expression -> ID . LPAREN args_list RPAREN
     (49) expression -> ID .
-    (18) funcall -> ID . args_list
     (13) args_list -> . args_list COMMA expression
     (14) args_list -> . expression
     (34) expression -> . expression PLUS expression
@@ -435,12 +435,12 @@ state 15
     AS              reduce using rule 49 (expression -> ID .)
     EXP             reduce using rule 49 (expression -> ID .)
     $end            reduce using rule 49 (expression -> ID .)
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
   ! MINUS           [ reduce using rule 49 (expression -> ID .) ]
 
@@ -475,13 +475,13 @@ state 17
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 60
 
@@ -494,168 +494,16 @@ state 18
 
 state 19
 
-    (42) expression -> MINUS . expression
-    (34) expression -> . expression PLUS expression
-    (35) expression -> . expression MINUS expression
-    (36) expression -> . expression TIMES expression
-    (37) expression -> . expression DIVIDE expression
-    (38) expression -> . expression EXACTDIV expression
-    (39) expression -> . expression MOD expression
-    (40) expression -> . expression AS expression
-    (41) expression -> . expression EXP expression
-    (42) expression -> . MINUS expression
-    (43) expression -> . LPAREN expression RPAREN
-    (44) expression -> . ID LPAREN RPAREN
-    (45) expression -> . ID LPAREN args_list RPAREN
-    (46) expression -> . INTEGER
-    (47) expression -> . DECIMAL
-    (48) expression -> . STRING
-    (49) expression -> . ID
-    (50) expression -> . LBRACE args_list RBRACE
-
-    MINUS           shift and go to state 19
-    LPAREN          shift and go to state 17
-    ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
-
-    expression                     shift and go to state 61
-
-state 20
-
-    (46) expression -> INTEGER .
-
-    PLUS            reduce using rule 46 (expression -> INTEGER .)
-    MINUS           reduce using rule 46 (expression -> INTEGER .)
-    TIMES           reduce using rule 46 (expression -> INTEGER .)
-    DIVIDE          reduce using rule 46 (expression -> INTEGER .)
-    EXACTDIV        reduce using rule 46 (expression -> INTEGER .)
-    MOD             reduce using rule 46 (expression -> INTEGER .)
-    AS              reduce using rule 46 (expression -> INTEGER .)
-    EXP             reduce using rule 46 (expression -> INTEGER .)
-    $end            reduce using rule 46 (expression -> INTEGER .)
-    COMMA           reduce using rule 46 (expression -> INTEGER .)
-    RPAREN          reduce using rule 46 (expression -> INTEGER .)
-    RBRACE          reduce using rule 46 (expression -> INTEGER .)
-    GREATER_THAN    reduce using rule 46 (expression -> INTEGER .)
-    LESS_THAN       reduce using rule 46 (expression -> INTEGER .)
-    EQUAL_GREATER_THAN reduce using rule 46 (expression -> INTEGER .)
-    EQUAL_LESS_THAN reduce using rule 46 (expression -> INTEGER .)
-    EQUALS          reduce using rule 46 (expression -> INTEGER .)
-    NOT_EQUAL       reduce using rule 46 (expression -> INTEGER .)
-    AND             reduce using rule 46 (expression -> INTEGER .)
-    OR              reduce using rule 46 (expression -> INTEGER .)
-    THEN            reduce using rule 46 (expression -> INTEGER .)
-    TO              reduce using rule 46 (expression -> INTEGER .)
-    STEP            reduce using rule 46 (expression -> INTEGER .)
-
-
-state 21
-
-    (47) expression -> DECIMAL .
-
-    PLUS            reduce using rule 47 (expression -> DECIMAL .)
-    MINUS           reduce using rule 47 (expression -> DECIMAL .)
-    TIMES           reduce using rule 47 (expression -> DECIMAL .)
-    DIVIDE          reduce using rule 47 (expression -> DECIMAL .)
-    EXACTDIV        reduce using rule 47 (expression -> DECIMAL .)
-    MOD             reduce using rule 47 (expression -> DECIMAL .)
-    AS              reduce using rule 47 (expression -> DECIMAL .)
-    EXP             reduce using rule 47 (expression -> DECIMAL .)
-    $end            reduce using rule 47 (expression -> DECIMAL .)
-    COMMA           reduce using rule 47 (expression -> DECIMAL .)
-    RPAREN          reduce using rule 47 (expression -> DECIMAL .)
-    RBRACE          reduce using rule 47 (expression -> DECIMAL .)
-    GREATER_THAN    reduce using rule 47 (expression -> DECIMAL .)
-    LESS_THAN       reduce using rule 47 (expression -> DECIMAL .)
-    EQUAL_GREATER_THAN reduce using rule 47 (expression -> DECIMAL .)
-    EQUAL_LESS_THAN reduce using rule 47 (expression -> DECIMAL .)
-    EQUALS          reduce using rule 47 (expression -> DECIMAL .)
-    NOT_EQUAL       reduce using rule 47 (expression -> DECIMAL .)
-    AND             reduce using rule 47 (expression -> DECIMAL .)
-    OR              reduce using rule 47 (expression -> DECIMAL .)
-    THEN            reduce using rule 47 (expression -> DECIMAL .)
-    TO              reduce using rule 47 (expression -> DECIMAL .)
-    STEP            reduce using rule 47 (expression -> DECIMAL .)
-
-
-state 22
-
-    (48) expression -> STRING .
-
-    PLUS            reduce using rule 48 (expression -> STRING .)
-    MINUS           reduce using rule 48 (expression -> STRING .)
-    TIMES           reduce using rule 48 (expression -> STRING .)
-    DIVIDE          reduce using rule 48 (expression -> STRING .)
-    EXACTDIV        reduce using rule 48 (expression -> STRING .)
-    MOD             reduce using rule 48 (expression -> STRING .)
-    AS              reduce using rule 48 (expression -> STRING .)
-    EXP             reduce using rule 48 (expression -> STRING .)
-    $end            reduce using rule 48 (expression -> STRING .)
-    COMMA           reduce using rule 48 (expression -> STRING .)
-    RPAREN          reduce using rule 48 (expression -> STRING .)
-    RBRACE          reduce using rule 48 (expression -> STRING .)
-    GREATER_THAN    reduce using rule 48 (expression -> STRING .)
-    LESS_THAN       reduce using rule 48 (expression -> STRING .)
-    EQUAL_GREATER_THAN reduce using rule 48 (expression -> STRING .)
-    EQUAL_LESS_THAN reduce using rule 48 (expression -> STRING .)
-    EQUALS          reduce using rule 48 (expression -> STRING .)
-    NOT_EQUAL       reduce using rule 48 (expression -> STRING .)
-    AND             reduce using rule 48 (expression -> STRING .)
-    OR              reduce using rule 48 (expression -> STRING .)
-    THEN            reduce using rule 48 (expression -> STRING .)
-    TO              reduce using rule 48 (expression -> STRING .)
-    STEP            reduce using rule 48 (expression -> STRING .)
-
-
-state 23
-
-    (50) expression -> LBRACE . args_list RBRACE
-    (13) args_list -> . args_list COMMA expression
-    (14) args_list -> . expression
-    (34) expression -> . expression PLUS expression
-    (35) expression -> . expression MINUS expression
-    (36) expression -> . expression TIMES expression
-    (37) expression -> . expression DIVIDE expression
-    (38) expression -> . expression EXACTDIV expression
-    (39) expression -> . expression MOD expression
-    (40) expression -> . expression AS expression
-    (41) expression -> . expression EXP expression
-    (42) expression -> . MINUS expression
-    (43) expression -> . LPAREN expression RPAREN
-    (44) expression -> . ID LPAREN RPAREN
-    (45) expression -> . ID LPAREN args_list RPAREN
-    (46) expression -> . INTEGER
-    (47) expression -> . DECIMAL
-    (48) expression -> . STRING
-    (49) expression -> . ID
-    (50) expression -> . LBRACE args_list RBRACE
-
-    MINUS           shift and go to state 19
-    LPAREN          shift and go to state 17
-    ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
-
-    args_list                      shift and go to state 62
-    expression                     shift and go to state 56
-
-state 24
-
     (76) control -> EXIT . WHILE
     (77) control -> EXIT . DO
     (78) control -> EXIT . FOR
 
-    WHILE           shift and go to state 63
-    DO              shift and go to state 64
-    FOR             shift and go to state 65
+    WHILE           shift and go to state 61
+    DO              shift and go to state 62
+    FOR             shift and go to state 63
 
 
-state 25
+state 20
 
     (58) while_block_begin -> WHILE . rel_expression
     (24) rel_expression -> . expression GREATER_THAN expression
@@ -686,45 +534,45 @@ state 25
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    LPAREN          shift and go to state 68
-    NOT             shift and go to state 69
-    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 66
+    NOT             shift and go to state 67
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
-    rel_expression                 shift and go to state 66
-    expression                     shift and go to state 67
+    rel_expression                 shift and go to state 64
+    expression                     shift and go to state 65
 
-state 26
+state 21
 
     (59) do_block_begin -> DO .
 
     $end            reduce using rule 59 (do_block_begin -> DO .)
 
 
-state 27
+state 22
 
     (60) for_block_begin -> FOR . ID EQUALS expression TO expression
     (61) for_block_begin -> FOR . ID EQUALS expression TO expression STEP expression
 
-    ID              shift and go to state 70
+    ID              shift and go to state 68
 
 
-state 28
+state 23
 
     (79) control -> CONTINUE . WHILE
     (80) control -> CONTINUE . DO
     (81) control -> CONTINUE . FOR
 
-    WHILE           shift and go to state 71
-    DO              shift and go to state 72
-    FOR             shift and go to state 73
+    WHILE           shift and go to state 69
+    DO              shift and go to state 70
+    FOR             shift and go to state 71
 
 
-state 29
+state 24
 
     (74) return -> RETURN .
     (75) return -> RETURN . expression
@@ -747,22 +595,174 @@ state 29
     (50) expression -> . LBRACE args_list RBRACE
 
     $end            reduce using rule 74 (return -> RETURN .)
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
-    expression                     shift and go to state 74
+    expression                     shift and go to state 72
 
-state 30
+state 25
 
     (17) defun_statement -> DEFUN . ID LPAREN params_list RPAREN EQUALS expression
 
-    ID              shift and go to state 75
+    ID              shift and go to state 73
 
+
+state 26
+
+    (42) expression -> MINUS . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 26
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
+
+    expression                     shift and go to state 74
+
+state 27
+
+    (46) expression -> INTEGER .
+
+    PLUS            reduce using rule 46 (expression -> INTEGER .)
+    MINUS           reduce using rule 46 (expression -> INTEGER .)
+    TIMES           reduce using rule 46 (expression -> INTEGER .)
+    DIVIDE          reduce using rule 46 (expression -> INTEGER .)
+    EXACTDIV        reduce using rule 46 (expression -> INTEGER .)
+    MOD             reduce using rule 46 (expression -> INTEGER .)
+    AS              reduce using rule 46 (expression -> INTEGER .)
+    EXP             reduce using rule 46 (expression -> INTEGER .)
+    $end            reduce using rule 46 (expression -> INTEGER .)
+    COMMA           reduce using rule 46 (expression -> INTEGER .)
+    RPAREN          reduce using rule 46 (expression -> INTEGER .)
+    GREATER_THAN    reduce using rule 46 (expression -> INTEGER .)
+    LESS_THAN       reduce using rule 46 (expression -> INTEGER .)
+    EQUAL_GREATER_THAN reduce using rule 46 (expression -> INTEGER .)
+    EQUAL_LESS_THAN reduce using rule 46 (expression -> INTEGER .)
+    EQUALS          reduce using rule 46 (expression -> INTEGER .)
+    NOT_EQUAL       reduce using rule 46 (expression -> INTEGER .)
+    RBRACE          reduce using rule 46 (expression -> INTEGER .)
+    AND             reduce using rule 46 (expression -> INTEGER .)
+    OR              reduce using rule 46 (expression -> INTEGER .)
+    THEN            reduce using rule 46 (expression -> INTEGER .)
+    TO              reduce using rule 46 (expression -> INTEGER .)
+    STEP            reduce using rule 46 (expression -> INTEGER .)
+
+
+state 28
+
+    (47) expression -> DECIMAL .
+
+    PLUS            reduce using rule 47 (expression -> DECIMAL .)
+    MINUS           reduce using rule 47 (expression -> DECIMAL .)
+    TIMES           reduce using rule 47 (expression -> DECIMAL .)
+    DIVIDE          reduce using rule 47 (expression -> DECIMAL .)
+    EXACTDIV        reduce using rule 47 (expression -> DECIMAL .)
+    MOD             reduce using rule 47 (expression -> DECIMAL .)
+    AS              reduce using rule 47 (expression -> DECIMAL .)
+    EXP             reduce using rule 47 (expression -> DECIMAL .)
+    $end            reduce using rule 47 (expression -> DECIMAL .)
+    COMMA           reduce using rule 47 (expression -> DECIMAL .)
+    RPAREN          reduce using rule 47 (expression -> DECIMAL .)
+    GREATER_THAN    reduce using rule 47 (expression -> DECIMAL .)
+    LESS_THAN       reduce using rule 47 (expression -> DECIMAL .)
+    EQUAL_GREATER_THAN reduce using rule 47 (expression -> DECIMAL .)
+    EQUAL_LESS_THAN reduce using rule 47 (expression -> DECIMAL .)
+    EQUALS          reduce using rule 47 (expression -> DECIMAL .)
+    NOT_EQUAL       reduce using rule 47 (expression -> DECIMAL .)
+    RBRACE          reduce using rule 47 (expression -> DECIMAL .)
+    AND             reduce using rule 47 (expression -> DECIMAL .)
+    OR              reduce using rule 47 (expression -> DECIMAL .)
+    THEN            reduce using rule 47 (expression -> DECIMAL .)
+    TO              reduce using rule 47 (expression -> DECIMAL .)
+    STEP            reduce using rule 47 (expression -> DECIMAL .)
+
+
+state 29
+
+    (48) expression -> STRING .
+
+    PLUS            reduce using rule 48 (expression -> STRING .)
+    MINUS           reduce using rule 48 (expression -> STRING .)
+    TIMES           reduce using rule 48 (expression -> STRING .)
+    DIVIDE          reduce using rule 48 (expression -> STRING .)
+    EXACTDIV        reduce using rule 48 (expression -> STRING .)
+    MOD             reduce using rule 48 (expression -> STRING .)
+    AS              reduce using rule 48 (expression -> STRING .)
+    EXP             reduce using rule 48 (expression -> STRING .)
+    $end            reduce using rule 48 (expression -> STRING .)
+    COMMA           reduce using rule 48 (expression -> STRING .)
+    RPAREN          reduce using rule 48 (expression -> STRING .)
+    GREATER_THAN    reduce using rule 48 (expression -> STRING .)
+    LESS_THAN       reduce using rule 48 (expression -> STRING .)
+    EQUAL_GREATER_THAN reduce using rule 48 (expression -> STRING .)
+    EQUAL_LESS_THAN reduce using rule 48 (expression -> STRING .)
+    EQUALS          reduce using rule 48 (expression -> STRING .)
+    NOT_EQUAL       reduce using rule 48 (expression -> STRING .)
+    RBRACE          reduce using rule 48 (expression -> STRING .)
+    AND             reduce using rule 48 (expression -> STRING .)
+    OR              reduce using rule 48 (expression -> STRING .)
+    THEN            reduce using rule 48 (expression -> STRING .)
+    TO              reduce using rule 48 (expression -> STRING .)
+    STEP            reduce using rule 48 (expression -> STRING .)
+
+
+state 30
+
+    (50) expression -> LBRACE . args_list RBRACE
+    (13) args_list -> . args_list COMMA expression
+    (14) args_list -> . expression
+    (34) expression -> . expression PLUS expression
+    (35) expression -> . expression MINUS expression
+    (36) expression -> . expression TIMES expression
+    (37) expression -> . expression DIVIDE expression
+    (38) expression -> . expression EXACTDIV expression
+    (39) expression -> . expression MOD expression
+    (40) expression -> . expression AS expression
+    (41) expression -> . expression EXP expression
+    (42) expression -> . MINUS expression
+    (43) expression -> . LPAREN expression RPAREN
+    (44) expression -> . ID LPAREN RPAREN
+    (45) expression -> . ID LPAREN args_list RPAREN
+    (46) expression -> . INTEGER
+    (47) expression -> . DECIMAL
+    (48) expression -> . STRING
+    (49) expression -> . ID
+    (50) expression -> . LBRACE args_list RBRACE
+
+    MINUS           shift and go to state 26
+    LPAREN          shift and go to state 17
+    ID              shift and go to state 54
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
+
+    args_list                      shift and go to state 75
+    expression                     shift and go to state 56
 
 state 31
 
@@ -838,17 +838,17 @@ state 36
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    LPAREN          shift and go to state 68
-    NOT             shift and go to state 69
-    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 66
+    NOT             shift and go to state 67
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     rel_expression                 shift and go to state 81
-    expression                     shift and go to state 67
+    expression                     shift and go to state 65
 
 state 37
 
@@ -920,17 +920,17 @@ state 42
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    LPAREN          shift and go to state 68
-    NOT             shift and go to state 69
-    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 66
+    NOT             shift and go to state 67
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     rel_expression                 shift and go to state 87
-    expression                     shift and go to state 67
+    expression                     shift and go to state 65
 
 state 43
 
@@ -967,13 +967,13 @@ state 45
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 89
 
@@ -998,13 +998,13 @@ state 46
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 90
 
@@ -1029,13 +1029,13 @@ state 47
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 91
 
@@ -1060,13 +1060,13 @@ state 48
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 92
 
@@ -1091,13 +1091,13 @@ state 49
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 93
 
@@ -1122,13 +1122,13 @@ state 50
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 94
 
@@ -1153,13 +1153,13 @@ state 51
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 95
 
@@ -1184,13 +1184,13 @@ state 52
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 96
 
@@ -1219,13 +1219,13 @@ state 54
     COMMA           reduce using rule 49 (expression -> ID .)
     $end            reduce using rule 49 (expression -> ID .)
     RPAREN          reduce using rule 49 (expression -> ID .)
-    RBRACE          reduce using rule 49 (expression -> ID .)
     GREATER_THAN    reduce using rule 49 (expression -> ID .)
     LESS_THAN       reduce using rule 49 (expression -> ID .)
     EQUAL_GREATER_THAN reduce using rule 49 (expression -> ID .)
     EQUAL_LESS_THAN reduce using rule 49 (expression -> ID .)
     EQUALS          reduce using rule 49 (expression -> ID .)
     NOT_EQUAL       reduce using rule 49 (expression -> ID .)
+    RBRACE          reduce using rule 49 (expression -> ID .)
     AND             reduce using rule 49 (expression -> ID .)
     OR              reduce using rule 49 (expression -> ID .)
     THEN            reduce using rule 49 (expression -> ID .)
@@ -1254,13 +1254,13 @@ state 55
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 98
 
@@ -1317,13 +1317,13 @@ state 57
     (14) args_list -> . expression
 
     RPAREN          shift and go to state 100
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 99
     args_list                      shift and go to state 101
@@ -1369,92 +1369,37 @@ state 60
 
 state 61
 
-    (42) expression -> MINUS expression .
-    (34) expression -> expression . PLUS expression
-    (35) expression -> expression . MINUS expression
-    (36) expression -> expression . TIMES expression
-    (37) expression -> expression . DIVIDE expression
-    (38) expression -> expression . EXACTDIV expression
-    (39) expression -> expression . MOD expression
-    (40) expression -> expression . AS expression
-    (41) expression -> expression . EXP expression
-
-    PLUS            reduce using rule 42 (expression -> MINUS expression .)
-    MINUS           reduce using rule 42 (expression -> MINUS expression .)
-    TIMES           reduce using rule 42 (expression -> MINUS expression .)
-    DIVIDE          reduce using rule 42 (expression -> MINUS expression .)
-    EXACTDIV        reduce using rule 42 (expression -> MINUS expression .)
-    MOD             reduce using rule 42 (expression -> MINUS expression .)
-    AS              reduce using rule 42 (expression -> MINUS expression .)
-    EXP             reduce using rule 42 (expression -> MINUS expression .)
-    $end            reduce using rule 42 (expression -> MINUS expression .)
-    COMMA           reduce using rule 42 (expression -> MINUS expression .)
-    RPAREN          reduce using rule 42 (expression -> MINUS expression .)
-    RBRACE          reduce using rule 42 (expression -> MINUS expression .)
-    GREATER_THAN    reduce using rule 42 (expression -> MINUS expression .)
-    LESS_THAN       reduce using rule 42 (expression -> MINUS expression .)
-    EQUAL_GREATER_THAN reduce using rule 42 (expression -> MINUS expression .)
-    EQUAL_LESS_THAN reduce using rule 42 (expression -> MINUS expression .)
-    EQUALS          reduce using rule 42 (expression -> MINUS expression .)
-    NOT_EQUAL       reduce using rule 42 (expression -> MINUS expression .)
-    AND             reduce using rule 42 (expression -> MINUS expression .)
-    OR              reduce using rule 42 (expression -> MINUS expression .)
-    THEN            reduce using rule 42 (expression -> MINUS expression .)
-    TO              reduce using rule 42 (expression -> MINUS expression .)
-    STEP            reduce using rule 42 (expression -> MINUS expression .)
-
-  ! PLUS            [ shift and go to state 45 ]
-  ! MINUS           [ shift and go to state 46 ]
-  ! TIMES           [ shift and go to state 47 ]
-  ! DIVIDE          [ shift and go to state 48 ]
-  ! EXACTDIV        [ shift and go to state 49 ]
-  ! MOD             [ shift and go to state 50 ]
-  ! AS              [ shift and go to state 51 ]
-  ! EXP             [ shift and go to state 52 ]
-
-
-state 62
-
-    (50) expression -> LBRACE args_list . RBRACE
-    (13) args_list -> args_list . COMMA expression
-
-    RBRACE          shift and go to state 105
-    COMMA           shift and go to state 102
-
-
-state 63
-
     (76) control -> EXIT WHILE .
 
     $end            reduce using rule 76 (control -> EXIT WHILE .)
 
 
-state 64
+state 62
 
     (77) control -> EXIT DO .
 
     $end            reduce using rule 77 (control -> EXIT DO .)
 
 
-state 65
+state 63
 
     (78) control -> EXIT FOR .
 
     $end            reduce using rule 78 (control -> EXIT FOR .)
 
 
-state 66
+state 64
 
     (58) while_block_begin -> WHILE rel_expression .
     (30) rel_expression -> rel_expression . AND rel_expression
     (31) rel_expression -> rel_expression . OR rel_expression
 
     $end            reduce using rule 58 (while_block_begin -> WHILE rel_expression .)
-    AND             shift and go to state 106
-    OR              shift and go to state 107
+    AND             shift and go to state 105
+    OR              shift and go to state 106
 
 
-state 67
+state 65
 
     (24) rel_expression -> expression . GREATER_THAN expression
     (25) rel_expression -> expression . LESS_THAN expression
@@ -1471,12 +1416,12 @@ state 67
     (40) expression -> expression . AS expression
     (41) expression -> expression . EXP expression
 
-    GREATER_THAN    shift and go to state 108
-    LESS_THAN       shift and go to state 109
-    EQUAL_GREATER_THAN shift and go to state 110
-    EQUAL_LESS_THAN shift and go to state 111
-    EQUALS          shift and go to state 112
-    NOT_EQUAL       shift and go to state 113
+    GREATER_THAN    shift and go to state 107
+    LESS_THAN       shift and go to state 108
+    EQUAL_GREATER_THAN shift and go to state 109
+    EQUAL_LESS_THAN shift and go to state 110
+    EQUALS          shift and go to state 111
+    NOT_EQUAL       shift and go to state 112
     PLUS            shift and go to state 45
     MINUS           shift and go to state 46
     TIMES           shift and go to state 47
@@ -1487,7 +1432,7 @@ state 67
     EXP             shift and go to state 52
 
 
-state 68
+state 66
 
     (32) rel_expression -> LPAREN . rel_expression RPAREN
     (43) expression -> LPAREN . expression RPAREN
@@ -1519,19 +1464,19 @@ state 68
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    LPAREN          shift and go to state 68
-    NOT             shift and go to state 69
-    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 66
+    NOT             shift and go to state 67
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
-    rel_expression                 shift and go to state 114
-    expression                     shift and go to state 115
+    rel_expression                 shift and go to state 113
+    expression                     shift and go to state 114
 
-state 69
+state 67
 
     (33) rel_expression -> NOT . rel_expression
     (24) rel_expression -> . expression GREATER_THAN expression
@@ -1562,48 +1507,48 @@ state 69
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    LPAREN          shift and go to state 68
-    NOT             shift and go to state 69
-    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 66
+    NOT             shift and go to state 67
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
-    rel_expression                 shift and go to state 116
-    expression                     shift and go to state 67
+    rel_expression                 shift and go to state 115
+    expression                     shift and go to state 65
 
-state 70
+state 68
 
     (60) for_block_begin -> FOR ID . EQUALS expression TO expression
     (61) for_block_begin -> FOR ID . EQUALS expression TO expression STEP expression
 
-    EQUALS          shift and go to state 117
+    EQUALS          shift and go to state 116
 
 
-state 71
+state 69
 
     (79) control -> CONTINUE WHILE .
 
     $end            reduce using rule 79 (control -> CONTINUE WHILE .)
 
 
-state 72
+state 70
 
     (80) control -> CONTINUE DO .
 
     $end            reduce using rule 80 (control -> CONTINUE DO .)
 
 
-state 73
+state 71
 
     (81) control -> CONTINUE FOR .
 
     $end            reduce using rule 81 (control -> CONTINUE FOR .)
 
 
-state 74
+state 72
 
     (75) return -> RETURN expression .
     (34) expression -> expression . PLUS expression
@@ -1626,11 +1571,66 @@ state 74
     EXP             shift and go to state 52
 
 
-state 75
+state 73
 
     (17) defun_statement -> DEFUN ID . LPAREN params_list RPAREN EQUALS expression
 
-    LPAREN          shift and go to state 118
+    LPAREN          shift and go to state 117
+
+
+state 74
+
+    (42) expression -> MINUS expression .
+    (34) expression -> expression . PLUS expression
+    (35) expression -> expression . MINUS expression
+    (36) expression -> expression . TIMES expression
+    (37) expression -> expression . DIVIDE expression
+    (38) expression -> expression . EXACTDIV expression
+    (39) expression -> expression . MOD expression
+    (40) expression -> expression . AS expression
+    (41) expression -> expression . EXP expression
+
+    PLUS            reduce using rule 42 (expression -> MINUS expression .)
+    MINUS           reduce using rule 42 (expression -> MINUS expression .)
+    TIMES           reduce using rule 42 (expression -> MINUS expression .)
+    DIVIDE          reduce using rule 42 (expression -> MINUS expression .)
+    EXACTDIV        reduce using rule 42 (expression -> MINUS expression .)
+    MOD             reduce using rule 42 (expression -> MINUS expression .)
+    AS              reduce using rule 42 (expression -> MINUS expression .)
+    EXP             reduce using rule 42 (expression -> MINUS expression .)
+    $end            reduce using rule 42 (expression -> MINUS expression .)
+    COMMA           reduce using rule 42 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 42 (expression -> MINUS expression .)
+    GREATER_THAN    reduce using rule 42 (expression -> MINUS expression .)
+    LESS_THAN       reduce using rule 42 (expression -> MINUS expression .)
+    EQUAL_GREATER_THAN reduce using rule 42 (expression -> MINUS expression .)
+    EQUAL_LESS_THAN reduce using rule 42 (expression -> MINUS expression .)
+    EQUALS          reduce using rule 42 (expression -> MINUS expression .)
+    NOT_EQUAL       reduce using rule 42 (expression -> MINUS expression .)
+    RBRACE          reduce using rule 42 (expression -> MINUS expression .)
+    AND             reduce using rule 42 (expression -> MINUS expression .)
+    OR              reduce using rule 42 (expression -> MINUS expression .)
+    THEN            reduce using rule 42 (expression -> MINUS expression .)
+    TO              reduce using rule 42 (expression -> MINUS expression .)
+    STEP            reduce using rule 42 (expression -> MINUS expression .)
+
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! TIMES           [ shift and go to state 47 ]
+  ! DIVIDE          [ shift and go to state 48 ]
+  ! EXACTDIV        [ shift and go to state 49 ]
+  ! MOD             [ shift and go to state 50 ]
+  ! AS              [ shift and go to state 51 ]
+  ! EXP             [ shift and go to state 52 ]
+
+
+state 75
+
+    (50) expression -> LBRACE args_list . RBRACE
+    (13) args_list -> args_list . COMMA expression
+
+    RBRACE          shift and go to state 118
+    COMMA           shift and go to state 102
 
 
 state 76
@@ -1675,8 +1675,8 @@ state 81
     (31) rel_expression -> rel_expression . OR rel_expression
 
     THEN            shift and go to state 119
-    AND             shift and go to state 106
-    OR              shift and go to state 107
+    AND             shift and go to state 105
+    OR              shift and go to state 106
 
 
 state 82
@@ -1717,17 +1717,17 @@ state 83
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    LPAREN          shift and go to state 68
-    NOT             shift and go to state 69
-    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 66
+    NOT             shift and go to state 67
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     rel_expression                 shift and go to state 120
-    expression                     shift and go to state 67
+    expression                     shift and go to state 65
 
 state 84
 
@@ -1760,17 +1760,17 @@ state 84
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    LPAREN          shift and go to state 68
-    NOT             shift and go to state 69
-    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 66
+    NOT             shift and go to state 67
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     rel_expression                 shift and go to state 121
-    expression                     shift and go to state 67
+    expression                     shift and go to state 65
 
 state 85
 
@@ -1793,8 +1793,8 @@ state 87
     (31) rel_expression -> rel_expression . OR rel_expression
 
     THEN            shift and go to state 124
-    AND             shift and go to state 106
-    OR              shift and go to state 107
+    AND             shift and go to state 105
+    OR              shift and go to state 106
 
 
 state 88
@@ -1823,13 +1823,13 @@ state 89
     $end            reduce using rule 34 (expression -> expression PLUS expression .)
     COMMA           reduce using rule 34 (expression -> expression PLUS expression .)
     RPAREN          reduce using rule 34 (expression -> expression PLUS expression .)
-    RBRACE          reduce using rule 34 (expression -> expression PLUS expression .)
     GREATER_THAN    reduce using rule 34 (expression -> expression PLUS expression .)
     LESS_THAN       reduce using rule 34 (expression -> expression PLUS expression .)
     EQUAL_GREATER_THAN reduce using rule 34 (expression -> expression PLUS expression .)
     EQUAL_LESS_THAN reduce using rule 34 (expression -> expression PLUS expression .)
     EQUALS          reduce using rule 34 (expression -> expression PLUS expression .)
     NOT_EQUAL       reduce using rule 34 (expression -> expression PLUS expression .)
+    RBRACE          reduce using rule 34 (expression -> expression PLUS expression .)
     AND             reduce using rule 34 (expression -> expression PLUS expression .)
     OR              reduce using rule 34 (expression -> expression PLUS expression .)
     THEN            reduce using rule 34 (expression -> expression PLUS expression .)
@@ -1869,13 +1869,13 @@ state 90
     $end            reduce using rule 35 (expression -> expression MINUS expression .)
     COMMA           reduce using rule 35 (expression -> expression MINUS expression .)
     RPAREN          reduce using rule 35 (expression -> expression MINUS expression .)
-    RBRACE          reduce using rule 35 (expression -> expression MINUS expression .)
     GREATER_THAN    reduce using rule 35 (expression -> expression MINUS expression .)
     LESS_THAN       reduce using rule 35 (expression -> expression MINUS expression .)
     EQUAL_GREATER_THAN reduce using rule 35 (expression -> expression MINUS expression .)
     EQUAL_LESS_THAN reduce using rule 35 (expression -> expression MINUS expression .)
     EQUALS          reduce using rule 35 (expression -> expression MINUS expression .)
     NOT_EQUAL       reduce using rule 35 (expression -> expression MINUS expression .)
+    RBRACE          reduce using rule 35 (expression -> expression MINUS expression .)
     AND             reduce using rule 35 (expression -> expression MINUS expression .)
     OR              reduce using rule 35 (expression -> expression MINUS expression .)
     THEN            reduce using rule 35 (expression -> expression MINUS expression .)
@@ -1918,13 +1918,13 @@ state 91
     $end            reduce using rule 36 (expression -> expression TIMES expression .)
     COMMA           reduce using rule 36 (expression -> expression TIMES expression .)
     RPAREN          reduce using rule 36 (expression -> expression TIMES expression .)
-    RBRACE          reduce using rule 36 (expression -> expression TIMES expression .)
     GREATER_THAN    reduce using rule 36 (expression -> expression TIMES expression .)
     LESS_THAN       reduce using rule 36 (expression -> expression TIMES expression .)
     EQUAL_GREATER_THAN reduce using rule 36 (expression -> expression TIMES expression .)
     EQUAL_LESS_THAN reduce using rule 36 (expression -> expression TIMES expression .)
     EQUALS          reduce using rule 36 (expression -> expression TIMES expression .)
     NOT_EQUAL       reduce using rule 36 (expression -> expression TIMES expression .)
+    RBRACE          reduce using rule 36 (expression -> expression TIMES expression .)
     AND             reduce using rule 36 (expression -> expression TIMES expression .)
     OR              reduce using rule 36 (expression -> expression TIMES expression .)
     THEN            reduce using rule 36 (expression -> expression TIMES expression .)
@@ -1964,13 +1964,13 @@ state 92
     $end            reduce using rule 37 (expression -> expression DIVIDE expression .)
     COMMA           reduce using rule 37 (expression -> expression DIVIDE expression .)
     RPAREN          reduce using rule 37 (expression -> expression DIVIDE expression .)
-    RBRACE          reduce using rule 37 (expression -> expression DIVIDE expression .)
     GREATER_THAN    reduce using rule 37 (expression -> expression DIVIDE expression .)
     LESS_THAN       reduce using rule 37 (expression -> expression DIVIDE expression .)
     EQUAL_GREATER_THAN reduce using rule 37 (expression -> expression DIVIDE expression .)
     EQUAL_LESS_THAN reduce using rule 37 (expression -> expression DIVIDE expression .)
     EQUALS          reduce using rule 37 (expression -> expression DIVIDE expression .)
     NOT_EQUAL       reduce using rule 37 (expression -> expression DIVIDE expression .)
+    RBRACE          reduce using rule 37 (expression -> expression DIVIDE expression .)
     AND             reduce using rule 37 (expression -> expression DIVIDE expression .)
     OR              reduce using rule 37 (expression -> expression DIVIDE expression .)
     THEN            reduce using rule 37 (expression -> expression DIVIDE expression .)
@@ -2011,13 +2011,13 @@ state 93
     $end            reduce using rule 38 (expression -> expression EXACTDIV expression .)
     COMMA           reduce using rule 38 (expression -> expression EXACTDIV expression .)
     RPAREN          reduce using rule 38 (expression -> expression EXACTDIV expression .)
-    RBRACE          reduce using rule 38 (expression -> expression EXACTDIV expression .)
     GREATER_THAN    reduce using rule 38 (expression -> expression EXACTDIV expression .)
     LESS_THAN       reduce using rule 38 (expression -> expression EXACTDIV expression .)
     EQUAL_GREATER_THAN reduce using rule 38 (expression -> expression EXACTDIV expression .)
     EQUAL_LESS_THAN reduce using rule 38 (expression -> expression EXACTDIV expression .)
     EQUALS          reduce using rule 38 (expression -> expression EXACTDIV expression .)
     NOT_EQUAL       reduce using rule 38 (expression -> expression EXACTDIV expression .)
+    RBRACE          reduce using rule 38 (expression -> expression EXACTDIV expression .)
     AND             reduce using rule 38 (expression -> expression EXACTDIV expression .)
     OR              reduce using rule 38 (expression -> expression EXACTDIV expression .)
     THEN            reduce using rule 38 (expression -> expression EXACTDIV expression .)
@@ -2064,13 +2064,13 @@ state 94
     $end            reduce using rule 39 (expression -> expression MOD expression .)
     COMMA           reduce using rule 39 (expression -> expression MOD expression .)
     RPAREN          reduce using rule 39 (expression -> expression MOD expression .)
-    RBRACE          reduce using rule 39 (expression -> expression MOD expression .)
     GREATER_THAN    reduce using rule 39 (expression -> expression MOD expression .)
     LESS_THAN       reduce using rule 39 (expression -> expression MOD expression .)
     EQUAL_GREATER_THAN reduce using rule 39 (expression -> expression MOD expression .)
     EQUAL_LESS_THAN reduce using rule 39 (expression -> expression MOD expression .)
     EQUALS          reduce using rule 39 (expression -> expression MOD expression .)
     NOT_EQUAL       reduce using rule 39 (expression -> expression MOD expression .)
+    RBRACE          reduce using rule 39 (expression -> expression MOD expression .)
     AND             reduce using rule 39 (expression -> expression MOD expression .)
     OR              reduce using rule 39 (expression -> expression MOD expression .)
     THEN            reduce using rule 39 (expression -> expression MOD expression .)
@@ -2105,13 +2105,13 @@ state 95
     $end            reduce using rule 40 (expression -> expression AS expression .)
     COMMA           reduce using rule 40 (expression -> expression AS expression .)
     RPAREN          reduce using rule 40 (expression -> expression AS expression .)
-    RBRACE          reduce using rule 40 (expression -> expression AS expression .)
     GREATER_THAN    reduce using rule 40 (expression -> expression AS expression .)
     LESS_THAN       reduce using rule 40 (expression -> expression AS expression .)
     EQUAL_GREATER_THAN reduce using rule 40 (expression -> expression AS expression .)
     EQUAL_LESS_THAN reduce using rule 40 (expression -> expression AS expression .)
     EQUALS          reduce using rule 40 (expression -> expression AS expression .)
     NOT_EQUAL       reduce using rule 40 (expression -> expression AS expression .)
+    RBRACE          reduce using rule 40 (expression -> expression AS expression .)
     AND             reduce using rule 40 (expression -> expression AS expression .)
     OR              reduce using rule 40 (expression -> expression AS expression .)
     THEN            reduce using rule 40 (expression -> expression AS expression .)
@@ -2157,13 +2157,13 @@ state 96
     $end            reduce using rule 41 (expression -> expression EXP expression .)
     COMMA           reduce using rule 41 (expression -> expression EXP expression .)
     RPAREN          reduce using rule 41 (expression -> expression EXP expression .)
-    RBRACE          reduce using rule 41 (expression -> expression EXP expression .)
     GREATER_THAN    reduce using rule 41 (expression -> expression EXP expression .)
     LESS_THAN       reduce using rule 41 (expression -> expression EXP expression .)
     EQUAL_GREATER_THAN reduce using rule 41 (expression -> expression EXP expression .)
     EQUAL_LESS_THAN reduce using rule 41 (expression -> expression EXP expression .)
     EQUALS          reduce using rule 41 (expression -> expression EXP expression .)
     NOT_EQUAL       reduce using rule 41 (expression -> expression EXP expression .)
+    RBRACE          reduce using rule 41 (expression -> expression EXP expression .)
     AND             reduce using rule 41 (expression -> expression EXP expression .)
     OR              reduce using rule 41 (expression -> expression EXP expression .)
     THEN            reduce using rule 41 (expression -> expression EXP expression .)
@@ -2205,13 +2205,13 @@ state 97
     (50) expression -> . LBRACE args_list RBRACE
 
     RPAREN          shift and go to state 100
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     args_list                      shift and go to state 101
     expression                     shift and go to state 56
@@ -2283,13 +2283,13 @@ state 100
     $end            reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     COMMA           reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     RPAREN          reduce using rule 44 (expression -> ID LPAREN RPAREN .)
-    RBRACE          reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     GREATER_THAN    reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     LESS_THAN       reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     EQUAL_GREATER_THAN reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     EQUAL_LESS_THAN reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     EQUALS          reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     NOT_EQUAL       reduce using rule 44 (expression -> ID LPAREN RPAREN .)
+    RBRACE          reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     AND             reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     OR              reduce using rule 44 (expression -> ID LPAREN RPAREN .)
     THEN            reduce using rule 44 (expression -> ID LPAREN RPAREN .)
@@ -2327,13 +2327,13 @@ state 102
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 128
 
@@ -2358,13 +2358,13 @@ state 103
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 129
 
@@ -2382,14 +2382,14 @@ state 104
     EXP             reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     $end            reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     RPAREN          reduce using rule 43 (expression -> LPAREN expression RPAREN .)
-    COMMA           reduce using rule 43 (expression -> LPAREN expression RPAREN .)
-    RBRACE          reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     GREATER_THAN    reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     LESS_THAN       reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     EQUAL_GREATER_THAN reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     EQUAL_LESS_THAN reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     EQUALS          reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     NOT_EQUAL       reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 43 (expression -> LPAREN expression RPAREN .)
+    RBRACE          reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     AND             reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     OR              reduce using rule 43 (expression -> LPAREN expression RPAREN .)
     THEN            reduce using rule 43 (expression -> LPAREN expression RPAREN .)
@@ -2398,35 +2398,6 @@ state 104
 
 
 state 105
-
-    (50) expression -> LBRACE args_list RBRACE .
-
-    PLUS            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    MINUS           reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    TIMES           reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    DIVIDE          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    EXACTDIV        reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    MOD             reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    AS              reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    EXP             reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    $end            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    COMMA           reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    RPAREN          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    RBRACE          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    GREATER_THAN    reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    LESS_THAN       reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    EQUAL_GREATER_THAN reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    EQUAL_LESS_THAN reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    EQUALS          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    NOT_EQUAL       reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    AND             reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    OR              reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    THEN            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    TO              reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-    STEP            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
-
-
-state 106
 
     (30) rel_expression -> rel_expression AND . rel_expression
     (24) rel_expression -> . expression GREATER_THAN expression
@@ -2457,19 +2428,19 @@ state 106
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    LPAREN          shift and go to state 68
-    NOT             shift and go to state 69
-    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 66
+    NOT             shift and go to state 67
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     rel_expression                 shift and go to state 130
-    expression                     shift and go to state 67
+    expression                     shift and go to state 65
 
-state 107
+state 106
 
     (31) rel_expression -> rel_expression OR . rel_expression
     (24) rel_expression -> . expression GREATER_THAN expression
@@ -2500,19 +2471,19 @@ state 107
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    LPAREN          shift and go to state 68
-    NOT             shift and go to state 69
-    MINUS           shift and go to state 19
+    LPAREN          shift and go to state 66
+    NOT             shift and go to state 67
+    MINUS           shift and go to state 26
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     rel_expression                 shift and go to state 131
-    expression                     shift and go to state 67
+    expression                     shift and go to state 65
 
-state 108
+state 107
 
     (24) rel_expression -> expression GREATER_THAN . expression
     (34) expression -> . expression PLUS expression
@@ -2533,17 +2504,17 @@ state 108
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 132
 
-state 109
+state 108
 
     (25) rel_expression -> expression LESS_THAN . expression
     (34) expression -> . expression PLUS expression
@@ -2564,17 +2535,17 @@ state 109
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 133
 
-state 110
+state 109
 
     (26) rel_expression -> expression EQUAL_GREATER_THAN . expression
     (34) expression -> . expression PLUS expression
@@ -2595,17 +2566,17 @@ state 110
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 134
 
-state 111
+state 110
 
     (27) rel_expression -> expression EQUAL_LESS_THAN . expression
     (34) expression -> . expression PLUS expression
@@ -2626,17 +2597,17 @@ state 111
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 135
 
-state 112
+state 111
 
     (28) rel_expression -> expression EQUALS . expression
     (34) expression -> . expression PLUS expression
@@ -2657,17 +2628,17 @@ state 112
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 136
 
-state 113
+state 112
 
     (29) rel_expression -> expression NOT_EQUAL . expression
     (34) expression -> . expression PLUS expression
@@ -2688,28 +2659,28 @@ state 113
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 137
 
-state 114
+state 113
 
     (32) rel_expression -> LPAREN rel_expression . RPAREN
     (30) rel_expression -> rel_expression . AND rel_expression
     (31) rel_expression -> rel_expression . OR rel_expression
 
     RPAREN          shift and go to state 138
-    AND             shift and go to state 106
-    OR              shift and go to state 107
+    AND             shift and go to state 105
+    OR              shift and go to state 106
 
 
-state 115
+state 114
 
     (43) expression -> LPAREN expression . RPAREN
     (24) rel_expression -> expression . GREATER_THAN expression
@@ -2728,12 +2699,12 @@ state 115
     (41) expression -> expression . EXP expression
 
     RPAREN          shift and go to state 104
-    GREATER_THAN    shift and go to state 108
-    LESS_THAN       shift and go to state 109
-    EQUAL_GREATER_THAN shift and go to state 110
-    EQUAL_LESS_THAN shift and go to state 111
-    EQUALS          shift and go to state 112
-    NOT_EQUAL       shift and go to state 113
+    GREATER_THAN    shift and go to state 107
+    LESS_THAN       shift and go to state 108
+    EQUAL_GREATER_THAN shift and go to state 109
+    EQUAL_LESS_THAN shift and go to state 110
+    EQUALS          shift and go to state 111
+    NOT_EQUAL       shift and go to state 112
     PLUS            shift and go to state 45
     MINUS           shift and go to state 46
     TIMES           shift and go to state 47
@@ -2744,7 +2715,7 @@ state 115
     EXP             shift and go to state 52
 
 
-state 116
+state 115
 
     (33) rel_expression -> NOT rel_expression .
     (30) rel_expression -> rel_expression . AND rel_expression
@@ -2756,11 +2727,11 @@ state 116
     THEN            reduce using rule 33 (rel_expression -> NOT rel_expression .)
     RPAREN          reduce using rule 33 (rel_expression -> NOT rel_expression .)
 
-  ! AND             [ shift and go to state 106 ]
-  ! OR              [ shift and go to state 107 ]
+  ! AND             [ shift and go to state 105 ]
+  ! OR              [ shift and go to state 106 ]
 
 
-state 117
+state 116
 
     (60) for_block_begin -> FOR ID EQUALS . expression TO expression
     (61) for_block_begin -> FOR ID EQUALS . expression TO expression STEP expression
@@ -2782,17 +2753,17 @@ state 117
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 139
 
-state 118
+state 117
 
     (17) defun_statement -> DEFUN ID LPAREN . params_list RPAREN EQUALS expression
     (15) params_list -> . params_list COMMA ID
@@ -2801,6 +2772,35 @@ state 118
     ID              shift and go to state 140
 
     params_list                    shift and go to state 141
+
+state 118
+
+    (50) expression -> LBRACE args_list RBRACE .
+
+    PLUS            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    MINUS           reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    TIMES           reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    DIVIDE          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EXACTDIV        reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    MOD             reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    AS              reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EXP             reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    $end            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    COMMA           reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    RPAREN          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    GREATER_THAN    reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    LESS_THAN       reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EQUAL_GREATER_THAN reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EQUAL_LESS_THAN reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    EQUALS          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    NOT_EQUAL       reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    RBRACE          reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    AND             reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    OR              reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    THEN            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    TO              reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+    STEP            reduce using rule 50 (expression -> LBRACE args_list RBRACE .)
+
 
 state 119
 
@@ -2816,8 +2816,8 @@ state 120
     (31) rel_expression -> rel_expression . OR rel_expression
 
     $end            reduce using rule 70 (block_end -> LOOP WHILE rel_expression .)
-    AND             shift and go to state 106
-    OR              shift and go to state 107
+    AND             shift and go to state 105
+    OR              shift and go to state 106
 
 
 state 121
@@ -2827,8 +2827,8 @@ state 121
     (31) rel_expression -> rel_expression . OR rel_expression
 
     $end            reduce using rule 71 (block_end -> LOOP UNTIL rel_expression .)
-    AND             shift and go to state 106
-    OR              shift and go to state 107
+    AND             shift and go to state 105
+    OR              shift and go to state 106
 
 
 state 122
@@ -2879,13 +2879,13 @@ state 125
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 144
 
@@ -2922,13 +2922,13 @@ state 127
     $end            reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     COMMA           reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     RPAREN          reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
-    RBRACE          reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     GREATER_THAN    reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     LESS_THAN       reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     EQUAL_GREATER_THAN reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     EQUAL_LESS_THAN reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     EQUALS          reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     NOT_EQUAL       reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
+    RBRACE          reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     AND             reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     OR              reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
     THEN            reduce using rule 45 (expression -> ID LPAREN args_list RPAREN .)
@@ -2997,8 +2997,8 @@ state 130
     THEN            reduce using rule 30 (rel_expression -> rel_expression AND rel_expression .)
     RPAREN          reduce using rule 30 (rel_expression -> rel_expression AND rel_expression .)
 
-  ! AND             [ shift and go to state 106 ]
-  ! OR              [ shift and go to state 107 ]
+  ! AND             [ shift and go to state 105 ]
+  ! OR              [ shift and go to state 106 ]
 
 
 state 131
@@ -3013,8 +3013,8 @@ state 131
     THEN            reduce using rule 31 (rel_expression -> rel_expression OR rel_expression .)
     RPAREN          reduce using rule 31 (rel_expression -> rel_expression OR rel_expression .)
 
-  ! AND             [ shift and go to state 106 ]
-  ! OR              [ shift and go to state 107 ]
+  ! AND             [ shift and go to state 105 ]
+  ! OR              [ shift and go to state 106 ]
 
 
 state 132
@@ -3293,13 +3293,13 @@ state 145
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 152
 
@@ -3325,13 +3325,13 @@ state 146
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 153
 
@@ -3439,13 +3439,13 @@ state 154
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 158
 
@@ -3485,13 +3485,13 @@ state 157
     (49) expression -> . ID
     (50) expression -> . LBRACE args_list RBRACE
 
-    MINUS           shift and go to state 19
+    MINUS           shift and go to state 26
     LPAREN          shift and go to state 17
     ID              shift and go to state 54
-    INTEGER         shift and go to state 20
-    DECIMAL         shift and go to state 21
-    STRING          shift and go to state 22
-    LBRACE          shift and go to state 23
+    INTEGER         shift and go to state 27
+    DECIMAL         shift and go to state 28
+    STRING          shift and go to state 29
+    LBRACE          shift and go to state 30
 
     expression                     shift and go to state 160
 
