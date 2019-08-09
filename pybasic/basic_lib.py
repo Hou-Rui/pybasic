@@ -6,6 +6,10 @@ import time
 
 from .symbol_table import global_table, table_stack
 
+class BasicStruct:
+    def __init__(self):
+        self.member = {}
+
 
 # console I/O
 @global_table.register('print')
@@ -64,6 +68,7 @@ global_table.reflect('tan', math.tan)
 global_table.reflect('exp', math.exp)
 global_table.reflect('log', math.log)
 global_table.reflect('rnd', random.random)
+global_table.reflect('randint', random.randint)
 
 # strings
 global_table.reflect('asc', ord)
@@ -106,3 +111,7 @@ def basic_swap(n):
     value0, value1 = n[0].run(), n[1].run()
     current_table.set(n[0].value, value1)
     current_table.set(n[1].value, value0)
+
+@global_table.register('struct')
+def basic_struct(n):
+    return BasicStruct()

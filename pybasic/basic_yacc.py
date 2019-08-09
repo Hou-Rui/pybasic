@@ -15,6 +15,7 @@ root_stack = RootStack([ast])
 
 # Precedence specifier.
 precedence = (
+    ('left', 'COLON'),
     ('left', 'COMMA'),
     ('left', 'AND', 'OR'),
     ('left', 'EQUALS', 'NOT_EQUAL', 'GREATER_THAN', 'LESS_THAN', 'EQUAL_GREATER_THAN', 'EQUAL_LESS_THAN'),
@@ -23,9 +24,21 @@ precedence = (
     ('left', 'TIMES', 'DIVIDE', 'MOD'),
     ('left', 'EXP'),
     ('right', 'UMINUS', 'NOT'),
+    ('left', 'DOT'),
 )
 
 # Parsers.
+def p_multi_statement(p):
+    '''
+    statement : statement COLON statement
+    '''
+    current_root = root_stack.top()
+    current_root.add(p[1])
+    current_root.add(p[3])
+    # for REPL only
+    p[0] = ASTNode.BlockNode()
+    p[0].tree = [p[1], p[3]]
+
 def p_singleline_statement(p):
     '''
     statement : assignment
@@ -85,7 +98,7 @@ def p_args_list(p):
 def p_param_list(p):
     '''
     params_list : params_list COMMA ID
-               | ID
+                | ID
     '''
     if len(p) == 2:
         p[0] = ASTNode(type='flag', value='<PARAMS>', tree=[p[1]])
@@ -120,11 +133,14 @@ def p_assignment(p):
     assignment : ID EQUALS expression
                | LET ID EQUALS expression
                | ID LPAREN expression RPAREN EQUALS expression
+               | expression DOT ID EQUALS expression
     '''
     if len(p) == 4:
         p[0] = ASTNode(type='funcall', value='<ASSIGN>', tree=[p[1], p[3]])
     elif len(p) == 5:
         p[0] = ASTNode(type='funcall', value='<ASSIGN>', tree=[p[2], p[4]])
+    elif len(p) == 6:
+        p[0] = ASTNode(type='funcall', value='<ASSIGN_MEMBER>', tree=[p[1], p[3], p[5]])
     else:
         p[0] = ASTNode(type='funcall', value='<ASSIGN_ARRAY>', tree=[p[1], p[3], p[6]])
 
@@ -165,11 +181,11 @@ def p_rel_expression(p):
         p[0] = ASTNode(type='funcall', value='<EQUAL>', tree=[p[1], p[3]])
     elif p[2] == '<>':
         p[0] = ASTNode(type='funcall', value='<NOT_EQUAL>', tree=[p[1], p[3]])
-    elif p[2] == 'and':
+    elif p[2] == 'AND':
         p[0] = ASTNode(type='funcall', value='<AND>', tree=[p[1], p[3]])
-    elif p[2] == 'or':
+    elif p[2] == 'OR':
         p[0] = ASTNode(type='funcall', value='<OR>', tree=[p[1], p[3]])
-    elif p[1] == 'not':
+    elif p[1] == 'NOT':
         p[0] = ASTNode(type='funcall', value='<NOT>', tree=[p[2]])
     elif p[1] == '(':
             p[0] = p[2]
@@ -184,6 +200,7 @@ def p_expression_calc(p):
                | expression MOD expression
                | expression AS expression
                | expression EXP expression
+               | expression DOT ID
                | MINUS expression %prec UMINUS
                | LPAREN expression RPAREN
     '''
@@ -204,6 +221,8 @@ def p_expression_calc(p):
             p[0] = ASTNode(type='funcall', value='<AS>', tree=[p[1], p[3]])
         elif p[2] == '^':
             p[0] = ASTNode(type='funcall', value='<EXP>', tree=[p[1], p[3]])
+        elif p[2] == '.':
+            p[0] = ASTNode(type='funcall', value='<MEMBER>', tree=[p[1], p[3]])
         elif p[1] == '(':
             p[0] = p[2]
     elif len(p) == 3: # unary expression
@@ -351,14 +370,13 @@ def p_function_block_begin(p):
     '''
     function_block_begin : SUB ID LPAREN params_list RPAREN
                          | FUNCTION ID LPAREN params_list RPAREN
+                         | SUB ID LPAREN RPAREN
+                         | FUNCTION ID LPAREN RPAREN
     '''
     p[0] = ASTNode(type='flag', value='<%s>' % p[1])
+    args_node = p[4].tree[:] if len(p) == 6 else []
     block_node = ASTNode.BlockNode()
-    p[0].add_group([
-        p[2],
-        p[4].tree[:],
-        block_node
-    ])
+    p[0].add_group([p[2], args_node, block_node])
     p[0].block = p[0].tree[2]
 
 def p_if_block_end(p):
@@ -462,7 +480,7 @@ def p_use_statement(p):
     '''
     statement : USE ID
     '''
-    lib_module_name = '%s/lib/%s.py' % (sys.path[0], p[2])
+    lib_module_name = '%s/basic_lib/%s.py' % (sys.path[0], p[2])
     py_module_name = '%s.py' % p[2]
     basic_module_name = '%s.bas' % p[2]
     if path.isfile(basic_module_name):

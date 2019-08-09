@@ -27,6 +27,10 @@ def curses_locate(x, y):
     stdscr.addstr(y, x, '')
     stdscr.refresh()
 
+@global_table.reflect('CHARAT')
+def curses_charat(x, y):
+    stdscr.getch(y, x)
+
 @global_table.reflect('PRINT')
 def curses_print(s):
     stdscr.addstr(s)
@@ -40,6 +44,10 @@ def curses_printbold(s):
 def curses_print_underline(s):
     stdscr.addstr(s, curses.A_UNDERLINE)
 
+@global_table.reflect('SETWAIT')
+def curses_setwait(x):
+    return curses.halfdelay(int(x * 10))
+
 @global_table.reflect('GETCH')
 def curses_getch():
     return stdscr.getch()
@@ -47,6 +55,10 @@ def curses_getch():
 @global_table.reflect('PAUSE')
 def curses_pause():
     stdscr.getch()
+
+@global_table.reflect('CLS')
+def curses_cls():
+    stdscr.clear()
 
 @global_table.reflect('CRSEXIT')
 def curses_exit():

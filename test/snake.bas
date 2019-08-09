@@ -1,0 +1,94 @@
+USE BCURSES
+USE BQUEUE
+
+FUNCTION PAIR(X, Y)
+    THIS = STRUCT()
+    THIS.X = X
+    THIS.Y = Y
+    RETURN THIS
+END FUNCTION
+
+SNAKE = QUEUE()
+TOP = PAIR(0, 0)
+MOVE = PAIR(1, 0)
+APPLE = PAIR(-1, 0)
+
+SUB SNKINIT()
+    SETWAIT 0.5
+    FOR X = 1 TO 10
+        Y = YMAX() \ 2
+        PUSH SNAKE, PAIR(X, Y)
+        TOP = PAIR(X, Y)
+        LOCATE X, Y
+        PRINT "*"
+    NEXT X
+END SUB
+
+SUB SNKMOVE()
+    TOP = PAIR(TOP.X + MOVE.X, TOP.Y + MOVE.Y)
+    SNKJUDGE(TOP)
+    IF APPLE.X <> -1 THEN
+        OLD = POP(SNAKE)
+        LOCATE OLD.X, OLD.Y
+        PRINT " "
+    END IF
+    PUSH SNAKE, TOP
+    LOCATE APPLE.X, APPLE.Y
+    PRINT "@"
+    LOCATE TOP.X, TOP.Y
+    PRINT "*"
+END SUB
+
+SUB SNKJUDGE(NXT)
+    IF NXT.X = 0 OR NXT.X > XMAX() OR NXT.Y = 0 OR NXT.Y > YMAX() THEN
+        GAMEOVER
+    END IF
+    C = CHARAT(NXT.X, NXT.Y)
+    IF C = "*" THEN
+        GAMEOVER
+    END IF
+    IF C = "@" THEN
+        APPLE.X = -1
+    END IF
+END SUB
+
+SUB GAMEOVER()
+    CLS
+    LOCATE XMAX() \ 2 - 4, YMAX() \ 2
+    PRINT "GAME OVER!"
+    PAUSE
+    CRSEXIT
+    EXIT
+END SUB
+
+SUB SNKINPUT()
+    C = GETCH()
+    IF C = ASC("w") OR C = ASC("W") THEN
+        MOVE = PAIR(0, -1)
+    ELSEIF C = ASC("s") OR C = ASC("S") THEN
+        MOVE = PAIR(0, 1)
+    ELSEIF C = ASC("a") OR C = ASC("A") THEN
+        MOVE = PAIR(-1, 0)
+    ELSEIF C = ASC("d") OR C = ASC("D") THEN
+        MOVE = PAIR(1, 0)
+    END IF
+END SUB
+
+SUB RNDAPPLE()
+    IF APPLE.X = -1 THEN
+        APPLE.X = RANDINT(0, XMAX())
+        APPLE.Y = RANDINT(0, YMAX())
+    END IF
+END SUB
+
+SUB PLAYGAME()
+    DO
+        RNDAPPLE
+        SNKMOVE
+        SNKINPUT
+    LOOP
+END SUB
+
+SNKINIT
+PLAYGAME
+CRSEXIT

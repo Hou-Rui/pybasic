@@ -17,6 +17,7 @@ global_table.set('<MOD>', lambda n: n[0].run() % n[1].run())
 global_table.set('<EXP>', lambda n: n[0].run() ** n[1].run())
 global_table.set('<ASSIGN>', lambda n: table_stack.top().set(n[0], n[1].run()))
 global_table.set('<UMINUS>', lambda n: -n[0].run())
+global_table.set('<MEMBER>', lambda n: n[0].run().member[n[1]])
 global_table.set('<GREATER_THAN>', lambda n: n[0].run() > n[1].run())
 global_table.set('<LESS_THAN>', lambda n: n[0].run() < n[1].run())
 global_table.set('<EQUAL_GREATER_THAN>', lambda n: n[0].run() >= n[1].run())
@@ -44,3 +45,8 @@ def basic_assign_array(n):
         py_list[py_count] = exp
     except IndexError:
         raise BasicError('Index %d is out of range (maximum %d)' % (py_count, len(py_list)))
+
+@global_table.register('<ASSIGN_MEMBER>')
+def basic_assign_member(n):
+    master, field, exp = n[0].run(), n[1], n[2].run()
+    master.member[field] = exp

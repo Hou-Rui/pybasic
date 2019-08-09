@@ -21,7 +21,7 @@ tokens = (
     'ID', 'INTEGER', 'DECIMAL', 'STRING',
     'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EXACTDIV', 'EXP',
     'GREATER_THAN', 'LESS_THAN', 'EQUAL_GREATER_THAN', 'EQUAL_LESS_THAN', 'NOT_EQUAL',
-    'LPAREN', 'RPAREN', 'LBRACE', 'RBRACE', 'COMMA',
+    'LPAREN', 'RPAREN', 'LBRACE', 'RBRACE', 'COMMA', 'DOT', 'COLON'
 )
 tokens += reserved_tuple
 
@@ -45,6 +45,8 @@ t_RPAREN = r'\)'
 t_LBRACE = r'\{'
 t_RBRACE = r'\}'
 t_COMMA = r'\,'
+t_DOT = r'\.'
+t_COLON = r'\:'
 
 # Regular expression rules for some tokens with action codes.
 def t_DECIMAL(t):

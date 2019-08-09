@@ -7,7 +7,7 @@ from . import basic_lib
 from . import basic_operators
 from . import basic_types
 from .symbol_table import SymbolTable, global_table, table_stack
-from .utils import Stack, item_getter
+from .utils import Stack, item_getter, BasicError
 
 
 class ASTControl:
@@ -70,7 +70,7 @@ class ASTNode:
             for node in self.tree:
                 node.run()
 
-        elif self.value == '<FUNCTION>':
+        elif self.value in ('<SUB>', '<FUNCTION>'):
 
             def func(n):
                 local_table = SymbolTable(table_stack.top())
@@ -174,7 +174,10 @@ class ASTNode:
             if isinstance(func, list):
                 getter = item_getter(func)
                 return getter(self.tree)
-            return func(self.tree)
+            try:
+                return func(self.tree)
+            except IndexError:
+                raise BasicError('Wrong number of arguments when calling %s' % self.value)
 
         elif self.type == 'id':
             return table_stack.top().get(self.value)
