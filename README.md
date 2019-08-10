@@ -59,7 +59,7 @@ PRINT A     ' [0, 0, 0, 0, 0]
 Supported logic control structures:
 
 - `IF <rel_expression> THEN ... END IF`
-- `SELECT CASE / SELECT <expression> ... CASE ... CASE ELSE ... END SELECT`
+- `SELECT [CASE] <expression> ... CASE ... CASE ELSE ... END SELECT`
 
 SELECT CASE is simply syntactic sugar for IF. There is no fallthrough in SELECT CASE, so you don't need to BREAK explicitly at the end of a CASE.
 
@@ -70,7 +70,7 @@ Supported loop control structures:
 - `WHILE <rel_expression> ... END WHILE / WEND`
 - `DO ... LOOP`
 - `DO ... LOOP WHILE / UNTIL <rel_expression>`
-- `FOR <id> = <expression> TO <expression> ... NEXT <id> / END FOR`
+- `FOR <id> = <expression> TO <expression> [STEP <expression>] ... NEXT [<id>] / END FOR`
 
 Please note that `GOTO` is not supported.
 
@@ -117,7 +117,7 @@ PRTYEAH "pybasic"          ' "yeah! pybasic"
 
 #### Structures
 
-Pybasic provides `STRUCT()` function to create a C-like structures. Once created, you may add any member to a structure or access a member using dot grammar. For example:
+Pybasic provides `STRUCT()` function to create a C-like structure. Once created, you may add members to a structure or access members using the "dot" grammar. For example:
 
 ```basic
 FUNCTION PERSON(NAME, AGE)
@@ -130,17 +130,28 @@ END FUNCTION
 JOHN = PERSON("John Smith", 30)
 PRINT JOHN.NAME    ' "John Smith"
 PRINT JOHN.AGE     ' 30
-
 ```
 
 #### I/O
 
-Unlike most BASIC dialects, pybasic provides `PRINT()` and `INPUT()` functions instead of statements. For example:
+Unlike most BASIC dialects, pybasic provides `PRINT()` and `INPUT()` functions instead of statements. `WRITE()` is also provided to print without breaking the line. For example:
 
 ```basic
 A = INPUT() AS INTEGER    ' input 17
 PRINT "My age is " + A    ' "My age is 17"
+``` 
 
+Other than functions above, pybasic also provides file I/O functions `OPEN()`, `CLOSE()`, `FPRINT()`, `FINPUT()`, and `FWRITE()`. For example:
+
+```basic
+' test.in: world
+IFILE = OPEN("test.in")
+OFILE = OPEN("test.out")
+LINE = FINPUT(IFILE)
+FPRINT OFILE, "hello, " + LINE
+CLOSE IFILE
+CLOSE OFILE
+' test.out: hello, world
 ```
 
 #### modules
@@ -168,8 +179,8 @@ def print_morning(a):
 USE HELLO
 USE MORNING
 
-PRTHELLO "Jack" ' Hello, Jack
-PRTMORN "Mary"  ' Good morning, Mary
+PRTHELLO "Jack"    ' Hello, Jack
+PRTMORN "Mary"     ' Good morning, Mary
 ```
 
 Any code in the module will be executed. If the module is python-based, it will be executed at runtime; if it is pybasic-based, it will be compiled into the main program before being executed.
