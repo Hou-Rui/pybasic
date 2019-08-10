@@ -27,12 +27,11 @@ optional arguments:
 
 Supported expressions:
 
-- `<expression>`: Math expressions. Support operators: `+`, `-`, `*`,
-`/`, `\`(exact division), `MOD`
+- `<expression>`: Math expressions. Support operators: `+`, `-`, `*`, `/`, `\`(exact division), `MOD`, `^`(exponent)
 - `<rel_expression>`: Logic expressions. Support operators: `AND`,
 `OR`, `NOT`, `=`(equals to), `<>`
 
-Please notice `=` in `<rel_expression>` is different from `=` in assignment statement.
+Please note that `=` in `<rel_expression>` is different from `=` in assignment statement.
 
 Literal values and function calls are also treated as `<expression>`. For example:
 
@@ -55,16 +54,25 @@ DIM A(5) AS INTEGER
 PRINT A     ' [0, 0, 0, 0, 0]
 ```
 
-#### control structures
+#### logic control structures
 
-Supported control structures:
+Supported logic control structures:
+
+- `IF <rel_expression> THEN ... END IF`
+- `SELECT CASE / SELECT <expression> ... CASE ... CASE ELSE ... END SELECT`
+
+SELECT CASE is simply syntactic sugar for IF. There is no fallthrough in SELECT CASE, so you don't need to BREAK explicitly at the end of a CASE.
+
+#### loop control structures
+
+Supported loop control structures:
 
 - `WHILE <rel_expression> ... END WHILE / WEND`
 - `DO ... LOOP`
 - `DO ... LOOP WHILE / UNTIL <rel_expression>`
 - `FOR <id> = <expression> TO <expression> ... NEXT <id> / END FOR`
 
-Please notice that `GOTO` is not supported.
+Please note that `GOTO` is not supported.
 
 #### data types
 
@@ -85,7 +93,7 @@ Use `AS` operator to do type conversions. For example:
 
 #### functions
 
-Some inner functions are provided, like `SQR()` and etc.
+Some functions are integrated, like `SQR()` and etc.
 
 Single-line functions can be defined with `DEFUN`. For example:
 
@@ -165,3 +173,5 @@ PRTMORN "Mary"  ' Good morning, Mary
 ```
 
 Any code in the module will be executed. If the module is python-based, it will be executed at runtime; if it is pybasic-based, it will be compiled into the main program before being executed.
+
+There are some modules defined in `./basic_lib`. Pybasic will search in `./basic_lib` first when importing a module. However, it is not recommended to save your own modules in `./basic_lib` if you want others to run your program. Save in the working directory instead.
