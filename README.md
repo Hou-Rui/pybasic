@@ -107,6 +107,24 @@ PRTYES "pybasic"           ' "yes! pybasic"
 PRTYEAH "pybasic"          ' "yeah! pybasic"
 ```
 
+#### Structures
+
+Pybasic provides `STRUCT()` function to create a C-like structures. Once created, you may add any member to a structure or access a member using dot grammar. For example:
+
+```basic
+FUNCTION PERSON(NAME, AGE)
+    THIS = STRUCT()
+    THIS.NAME = NAME
+    THIS.AGE = AGE
+    RETURN THIS
+END FUNCTION
+
+JOHN = PERSON("John Smith", 30)
+PRINT JOHN.NAME    ' "John Smith"
+PRINT JOHN.AGE     ' 30
+
+```
+
 #### I/O
 
 Unlike most BASIC dialects, pybasic provides `PRINT()` and `INPUT()` functions instead of statements. For example:
