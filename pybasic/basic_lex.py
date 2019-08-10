@@ -6,6 +6,7 @@ from .utils import BasicError
 reserved_tuple = (
     'LET', 'DIM',
     'IF', 'THEN', 'ELSE', 'ELSEIF', 'END',
+    'SELECT', 'CASE',
     'WHILE', 'DO', 'WEND', 'LOOP', 'UNTIL',
     'FOR', 'TO', 'STEP', 'NEXT',
     'EXIT', 'CONTINUE',

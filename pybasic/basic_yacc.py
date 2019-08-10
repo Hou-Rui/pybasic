@@ -7,11 +7,12 @@ import ply.yacc as yacc
 
 from .basic_ast import ASTNode, build_ast
 from .basic_lex import tokens
-from .utils import BasicError, RootStack
+from .utils import BasicError, RootStack, Stack
 
 # Abstract syntax tree.
 ast = build_ast()
 root_stack = RootStack([ast])
+select_var_count = 0
 
 # Precedence specifier.
 precedence = (
@@ -76,11 +77,13 @@ def p_multiline_end_statement(p):
     root_stack.pop()
     p[0] = p[1]
 
-def p_if_else_elseif(p):
+def p_logic_control(p):
     '''
     statement : if_block_begin
               | elseif_block_begin
               | else_statement
+              | case_begin
+              | case_else_begin
     '''
     p[0] = p[1]
 
@@ -329,6 +332,76 @@ def p_elseif(p):
     root_stack.pop()
     root_stack.push(p[0].block)
 
+def p_select_case_begin(p):
+    '''
+    statement : SELECT CASE expression
+              | SELECT expression
+    '''
+    global select_var_count
+    current_root = root_stack.top()
+    select_var_count += 1
+    define_select_var_node = ASTNode(type='funcall', value='<ASSIGN>', tree=[
+        '<SELECT_VAR_%d>' % select_var_count,
+        p[len(p) - 1]
+    ])
+    seq_node = ASTNode(type='flag', value='<SEQ>')
+    current_root.add_group([define_select_var_node, seq_node])
+    root_stack.push(seq_node)
+
+def p_case(p):
+    '''
+    case_begin : CASE expression
+    '''
+    global select_var_count
+    current_root = root_stack.top()
+    eq_node = ASTNode(type='funcall', value='<EQUAL>')
+    eq_node.add_group([
+        ASTNode(type='id', value='<SELECT_VAR_%d>' % select_var_count), # select case variable
+        p[2],
+    ])
+    p[0] = ASTNode(type='flag', value='<IF>')
+    p[0].add_group([
+        eq_node,
+        ASTNode.BlockNode(),
+    ])
+    p[0].block = p[0].tree[1]
+    if current_root.value == '<SEQ>':
+        current_root.add(p[0])
+    else:
+        try:
+            if_node = current_root.parent
+            seq_node = if_node.parent
+            assert seq_node.value == '<SEQ>'
+        except Exception:
+            raise BasicError('CASE without SELECT')
+        seq_node.add(p[0])
+        root_stack.pop()
+    root_stack.push(p[0].block)
+
+def p_case_else(p):
+    '''
+    case_else_begin : CASE ELSE
+    '''
+    current_root = root_stack.top()
+    p[0] = ASTNode(type='flag', value='<IF>')
+    p[0].add_group([
+        ASTNode.TrueNode(),
+        ASTNode.BlockNode()
+    ])
+    p[0].block = p[0].tree[1]
+    if current_root.value == '<SEQ>':
+        current_root.add(p[0])
+    else:
+        try:
+            if_node = current_root.parent
+            seq_node = if_node.parent
+            assert seq_node.value == '<SEQ>'
+        except Exception:
+            raise BasicError('CASE without SELECT')
+        seq_node.add(p[0])
+        root_stack.pop()
+    root_stack.push(p[0].block)
+
 def p_while_block_begin(p):
     '''
     while_block_begin : WHILE rel_expression
@@ -386,6 +459,16 @@ def p_if_block_end(p):
     current_root = root_stack.top()
     if current_root.parent.value != '<IF>':
         raise BasicError('END IF without IF')
+
+def p_select_block_end(p):
+    '''
+    block_end : END SELECT
+    '''
+    global select_var_count
+    current_root = root_stack.top()
+    if current_root.parent.value != '<IF>':
+        raise BasicError('END SELECT without SELECT')
+    select_var_count -= 1
 
 def p_while_block_end(p):
     '''

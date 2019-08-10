@@ -5,10 +5,16 @@ import random
 import time
 
 from .symbol_table import global_table, table_stack
+from .utils import BasicError
 
 class BasicStruct:
     def __init__(self):
         self.member = {}
+    def get(self, name):
+        try:
+            return self.member[name]
+        except KeyError as error:
+            raise BasicError('Member %s is undefined' % str(error))
 
 
 # console I/O
