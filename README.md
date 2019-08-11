@@ -139,7 +139,7 @@ Unlike most BASIC dialects, pybasic provides `PRINT()` and `INPUT()` functions i
 ```basic
 A = INPUT() AS INTEGER    ' input 17
 PRINT "My age is " + A    ' "My age is 17"
-``` 
+```
 
 Other than functions above, pybasic also provides file I/O functions `OPEN()`, `CLOSE()`, `FPRINT()`, `FINPUT()`, and `FWRITE()`. For example:
 
