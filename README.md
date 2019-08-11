@@ -23,7 +23,7 @@ optional arguments:
                         be executed. This will be ignored in REPL mode.
 ```
 
-#### expressions
+## expressions
 
 Supported expressions:
 
@@ -43,7 +43,7 @@ Literal values and function calls are also treated as `<expression>`. For exampl
 SQR(5)             ' 2.23606797749979
 ```
 
-#### assignments
+## assignments
 
 Use `LET <id> = <expression>` or simply `<id> = <expression>`.
 
@@ -54,7 +54,7 @@ DIM A(5) AS INTEGER
 PRINT A     ' [0, 0, 0, 0, 0]
 ```
 
-#### logic control structures
+## logic control structures
 
 Supported logic control structures:
 
@@ -63,7 +63,7 @@ Supported logic control structures:
 
 SELECT CASE is simply syntactic sugar for IF. There is no fallthrough in SELECT CASE, so you don't need to BREAK explicitly at the end of a CASE.
 
-#### loop control structures
+## loop control structures
 
 Supported loop control structures:
 
@@ -74,7 +74,7 @@ Supported loop control structures:
 
 Please note that `GOTO` is not supported.
 
-#### data types
+## data types
 
 Supported data types:
 
@@ -91,7 +91,7 @@ Use `AS` operator to do type conversions. For example:
 2.5 AS STRING        ' "2.5"
 ```
 
-#### functions
+## functions
 
 Some functions are integrated, like `SQR()` and etc.
 
@@ -115,7 +115,7 @@ PRTYES "pybasic"           ' "yes! pybasic"
 PRTYEAH "pybasic"          ' "yeah! pybasic"
 ```
 
-#### Structures
+## Structures
 
 Pybasic provides `STRUCT()` function to create a C-like structure. Once created, you may add members to a structure or access members using the "dot" grammar. For example:
 
@@ -132,7 +132,7 @@ PRINT JOHN.NAME    ' "John Smith"
 PRINT JOHN.AGE     ' 30
 ```
 
-#### I/O
+## I/O
 
 Unlike most BASIC dialects, pybasic provides `PRINT()` and `INPUT()` functions instead of statements. `WRITE()` is also provided to print without breaking the line. For example:
 
@@ -154,7 +154,7 @@ CLOSE OFILE
 ' test.out: hello, world
 ```
 
-#### modules
+## modules
 
 Use ```USE``` to import a Python module or another pybasic program. Pybasic will try finding a file ended with ```.bas``` or ```.py``` following the module's name in the current working directory. If no such file is finded, an error will be raised. For example:
 
