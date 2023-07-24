@@ -47,6 +47,7 @@ def p_singleline_statement(p):
               | funcall
               | control
               | return
+              | prog_end
               | defun_statement
     '''
     current_root = root_stack.top()
@@ -534,6 +535,12 @@ def p_return(p):
         p[0].add(ASTNode.NothingNode())
     else:
         p[0].add(p[2])
+
+def p_prog_end(p):
+    '''
+    prog_end : END
+    '''
+    p[0] = ASTNode(type='flag', value='<END>')
 
 def p_control_exit(p):
     '''

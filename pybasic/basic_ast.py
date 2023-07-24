@@ -160,6 +160,10 @@ class ASTNode:
         elif self.value == '<RETURN>':
             return ASTControl('return', self.tree[0].run())
 
+        elif self.value == '<END>':
+            sys.exit(0)
+            return ASTControl('end')
+
         elif self.value == '<RUN_PY>':
             file_name = self.tree[0]
             if path.isfile(file_name):
