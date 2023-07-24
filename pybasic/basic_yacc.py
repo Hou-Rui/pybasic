@@ -1,5 +1,5 @@
 #! python3
-import readline
+# import readline
 import sys
 from os import path
 
@@ -22,7 +22,7 @@ precedence = (
     ('left', 'EQUALS', 'NOT_EQUAL', 'GREATER_THAN', 'LESS_THAN', 'EQUAL_GREATER_THAN', 'EQUAL_LESS_THAN'),
     ('left', 'AS'),
     ('left', 'PLUS', 'MINUS'),
-    ('left', 'TIMES', 'DIVIDE', 'MOD'),
+    ('left', 'TIMES', 'DIVIDE', 'EXACTDIV', 'MOD'),
     ('left', 'EXP'),
     ('right', 'UMINUS', 'NOT'),
     ('left', 'DOT'),
@@ -191,7 +191,7 @@ def p_rel_expression(p):
     elif p[1] == 'NOT':
         p[0] = ASTNode(type='funcall', value='<NOT>', tree=[p[2]])
     elif p[1] == '(':
-            p[0] = p[2]
+        p[0] = p[2]
 
 def p_expression_calc(p):
     '''
