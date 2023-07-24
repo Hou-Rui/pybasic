@@ -21,8 +21,8 @@ class BasicStruct:
 @global_table.register('print')
 def basic_print(n):
     for node in n:
-        print(node.run())
-
+        print(node.run(), end=' ')
+    print()
 
 @global_table.register('write')
 def basic_write(n):
