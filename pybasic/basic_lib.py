@@ -101,6 +101,11 @@ def basic_cls():
         os.system('clear')
 
 
+@global_table.reflect('SYS_EXIT')
+def basic_sysexit():
+    import sys
+    print("SYS EXIT WITH 0", file=sys.stdout)
+    sys.exit(0)
 
 # FUNCTION SLEEP(X) ' suspend for X milliseconds
 global_table.reflect('sleep', time.sleep)
