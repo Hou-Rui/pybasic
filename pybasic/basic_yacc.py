@@ -570,9 +570,10 @@ def p_use_statement(p):
     '''
     statement : USE ID
     '''
-    lib_module_name = '%s/basic_lib/%s.py' % (sys.path[0], p[2])
-    py_module_name = '%s.py' % p[2]
-    basic_module_name = '%s.bas' % p[2]
+    name = p[2].lower()
+    lib_module_name = '%s/basic_lib/%s.py' % (sys.path[0], name)
+    py_module_name = '%s.py' % name
+    basic_module_name = '%s.bas' % name
     if path.isfile(basic_module_name):
         module_file = open(basic_module_name)
         lines = module_file.readlines()
