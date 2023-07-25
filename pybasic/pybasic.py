@@ -45,7 +45,7 @@ def repl():
 
 # Execute a text-based program.
 def execute(program_name):
-    f = open(program_name, 'r')
+    f = open(program_name, 'r', encoding="utf8")
     lines = f.readlines()
     try:
         for line in lines:
