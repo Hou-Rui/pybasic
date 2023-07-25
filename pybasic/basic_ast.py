@@ -59,8 +59,9 @@ class ASTNode:
         return node
 
     def show(self, layer=0, end=False):
+        # layer - 1, layer 1 indent same as layer 0 (PROGRAM)
         pre = '|   ' * (layer - 1) + ('└── ' if end else '├── ')
-        print(pre + str(self))
+        print(pre + str(self), file=sys.stderr)
         for node in self.tree:
             if isinstance(node, ASTNode) and node.tree:
                 node.show(layer + 1, node is self.tree[-1])
@@ -74,11 +75,15 @@ class ASTNode:
 
             def func(n):
                 local_table = SymbolTable(table_stack.top())
-                table_stack.push(local_table)
+                # compute in caller's level
                 for index, param in enumerate(self.tree[1]):
                     local_table.set(param, n[index].run())
+                table_stack.push(local_table)
+                # if len(table_stack) > 50:
+                #    print(f"table_stack too deep {len(table_stack)}")
                 block_node = self.tree[2]
                 result = block_node.run()
+                table_stack.pop()
                 if isinstance(result, ASTControl) and result.msg == 'return':
                     return result.value
 
