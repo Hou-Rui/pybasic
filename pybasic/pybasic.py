@@ -5,6 +5,7 @@ import pickle
 import sys
 
 from .basic_yacc import ast, parser, root_stack
+from .basic_ast import stack_size2a
 from .utils import BasicError
 
 
@@ -35,6 +36,7 @@ def repl():
             continue
         if result is not None:
             try:
+                # result.show()
                 out = result.run()
                 if out is not None:
                     print('Out [%d]: %s' % (cnt, out))
@@ -45,11 +47,13 @@ def repl():
 
 # Execute a text-based program.
 def execute(program_name):
-    f = open(program_name, 'r')
+    f = open(program_name, 'r', encoding="utf8")
     lines = f.readlines()
     try:
         for line in lines:
             parser.parse(line)
+        # ast.show()
+        # print(f'stack depth = {stack_size2a()}')
         ast.run()
     except Exception as error:
         print_error(error)

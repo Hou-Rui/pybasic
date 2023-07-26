@@ -13,13 +13,18 @@ class SymbolTable:
         id = id.upper()
         if id in self._table:
             return self._table[id]
-        if self.parent is None:
+        if not id in global_table._table:
             raise BasicError('undefined variable "%s"' % id)
         else:
-            return self.parent.get(id)
+            return global_table.get(id)
 
     def set(self, id, value):
-        self._table[id.upper()] = value
+        id = id.upper()
+        if id in self._table or not id in global_table._table:
+            self._table[id] = value
+            return True
+        global_table._table[id] = value
+        return True
 
     def register(self, id):
         def decorator(func):

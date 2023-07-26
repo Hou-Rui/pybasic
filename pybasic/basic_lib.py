@@ -21,8 +21,8 @@ class BasicStruct:
 @global_table.register('print')
 def basic_print(n):
     for node in n:
-        print(node.run())
-
+        print(node.run(), end=' ')
+    print()
 
 @global_table.register('write')
 def basic_write(n):
@@ -101,6 +101,11 @@ def basic_cls():
         os.system('clear')
 
 
+@global_table.reflect('SYS_EXIT')
+def basic_sysexit():
+    import sys
+    print("SYS EXIT WITH 0", file=sys.stdout)
+    sys.exit(0)
 
 # FUNCTION SLEEP(X) ' suspend for X milliseconds
 global_table.reflect('sleep', time.sleep)

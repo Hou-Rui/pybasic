@@ -1,5 +1,5 @@
 #! python3
-import readline
+# import readline
 import sys
 from os import path
 
@@ -22,7 +22,7 @@ precedence = (
     ('left', 'EQUALS', 'NOT_EQUAL', 'GREATER_THAN', 'LESS_THAN', 'EQUAL_GREATER_THAN', 'EQUAL_LESS_THAN'),
     ('left', 'AS'),
     ('left', 'PLUS', 'MINUS'),
-    ('left', 'TIMES', 'DIVIDE', 'MOD'),
+    ('left', 'TIMES', 'DIVIDE', 'EXACTDIV', 'MOD'),
     ('left', 'EXP'),
     ('right', 'UMINUS', 'NOT'),
     ('left', 'DOT'),
@@ -47,6 +47,7 @@ def p_singleline_statement(p):
               | funcall
               | control
               | return
+              | prog_end
               | defun_statement
     '''
     current_root = root_stack.top()
@@ -191,7 +192,7 @@ def p_rel_expression(p):
     elif p[1] == 'NOT':
         p[0] = ASTNode(type='funcall', value='<NOT>', tree=[p[2]])
     elif p[1] == '(':
-            p[0] = p[2]
+        p[0] = p[2]
 
 def p_expression_calc(p):
     '''
@@ -535,6 +536,12 @@ def p_return(p):
     else:
         p[0].add(p[2])
 
+def p_prog_end(p):
+    '''
+    prog_end : END
+    '''
+    p[0] = ASTNode(type='flag', value='<END>')
+
 def p_control_exit(p):
     '''
     control : EXIT WHILE
@@ -563,9 +570,10 @@ def p_use_statement(p):
     '''
     statement : USE ID
     '''
-    lib_module_name = '%s/basic_lib/%s.py' % (sys.path[0], p[2])
-    py_module_name = '%s.py' % p[2]
-    basic_module_name = '%s.bas' % p[2]
+    name = p[2].lower()
+    lib_module_name = '%s/basic_lib/%s.py' % (sys.path[0], name)
+    py_module_name = '%s.py' % name
+    basic_module_name = '%s.bas' % name
     if path.isfile(basic_module_name):
         module_file = open(basic_module_name)
         lines = module_file.readlines()

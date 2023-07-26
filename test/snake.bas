@@ -12,6 +12,10 @@ SNAKE = QUEUE()
 TOP = PAIR(0, 0)
 MOVE = PAIR(1, 0)
 APPLE = PAIR(-1, 0)
+DIM WINCHARS(XMAX() * YMAX()) as integer
+FOR i = 0 TO XMAX() * YMAX()
+    WINCHARS(i) = ASC("!")
+NEXT i
 
 SUB SNKINIT()
     SETWAIT 0.5
@@ -20,7 +24,8 @@ SUB SNKINIT()
         PUSH SNAKE, PAIR(X, Y)
         TOP = PAIR(X, Y)
         LOCATE X, Y
-        PRINT "*"
+        WINCHARS(X * YMAX() + Y) = ASC("*")
+        CRSPRINT "*"
     NEXT X
 END SUB
 
@@ -30,20 +35,30 @@ SUB SNKMOVE()
     IF APPLE.X <> -1 THEN
         OLD = POP(SNAKE)
         LOCATE OLD.X, OLD.Y
-        PRINT " "
+        WINCHARS(OLD.X * YMAX() + OLD.Y) = ASC(" ")
+        CRSPRINT " "
+
+        LOCATE APPLE.X, APPLE.Y
+        WINCHARS(APPLE.X * YMAX() + APPLE.Y) = ASC("@")
+        CRSPRINT "@"
     END IF
     PUSH SNAKE, TOP
-    LOCATE APPLE.X, APPLE.Y
-    PRINT "@"
     LOCATE TOP.X, TOP.Y
-    PRINT "*"
+    WINCHARS(TOP.X * YMAX() + TOP.Y) = ASC("*")
+    CRSPRINT "*"
 END SUB
 
 SUB SNKJUDGE(NXT)
-    IF NXT.X = 0 OR NXT.X > XMAX() OR NXT.Y = 0 OR NXT.Y > YMAX() THEN
+    'CRSPRINT NXT.X, NXT.Y
+    'LOCATE 1, 2
+    'CRSPRINT XMAX(), YMAX()
+    IF NXT.X < 0 OR NXT.X >= XMAX() OR NXT.Y < 0 OR NXT.Y >= YMAX() THEN
         GAMEOVER
     END IF
-    C = CHARAT(NXT.X, NXT.Y)
+    ' C = CHARAT(NXT.X, NXT.Y)
+    C = CHR$(WINCHARS(NXT.X * YMAX() + NXT.Y))
+    LOCATE 2, 2
+    CRSPRINT C
     IF C = "*" THEN
         GAMEOVER
     END IF
@@ -53,12 +68,12 @@ SUB SNKJUDGE(NXT)
 END SUB
 
 SUB GAMEOVER()
-    CLS
+    ' CLS
     LOCATE XMAX() \ 2 - 4, YMAX() \ 2
-    PRINT "GAME OVER!"
+    CRSPRINT "GAME OVER!"
     PAUSE
     CRSEXIT
-    EXIT
+    END
 END SUB
 
 SUB SNKINPUT()
@@ -76,8 +91,8 @@ END SUB
 
 SUB RNDAPPLE()
     IF APPLE.X = -1 THEN
-        APPLE.X = RANDINT(0, XMAX())
-        APPLE.Y = RANDINT(0, YMAX())
+        APPLE.X = RANDINT(0, XMAX() - 1)
+        APPLE.Y = RANDINT(0, YMAX() - 1)
     END IF
 END SUB
 
@@ -89,6 +104,9 @@ SUB PLAYGAME()
     LOOP
 END SUB
 
+'    PRINT XMAX() \ 2 - 4, YMAX() \ 2
+' C = GETCH()
 SNKINIT
 PLAYGAME
 CRSEXIT
+PRINT "PROG END"

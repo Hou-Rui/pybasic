@@ -33,14 +33,14 @@ global_table.set('<AS>', lambda n: n[1].run()(n[0].run()))
 def basic_dim_array(n):
     id_name, type_name, size = n[0], n[1], n[2].run()
     py_type = global_table.get(type_name)
-    array = [py_type() for _ in range(size)]
+    array = [py_type() for _ in range(size + 1)]
     global_table.set(id_name, array)
 
 @global_table.register('<ASSIGN_ARRAY>')
 def basic_assign_array(n):
     id_name, basic_count, exp = n[0], n[1].run(), n[2].run()
     py_list = global_table.get(id_name)
-    py_count = basic_count - 1
+    py_count = basic_count # - 1
     try:
         py_list[py_count] = exp
     except IndexError:

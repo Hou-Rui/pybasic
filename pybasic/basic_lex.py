@@ -63,7 +63,7 @@ def t_STRING(t):
     t.value = t.value[1:-1]
     return t
 def t_ID(t):
-    r'[a-zA-Z_\$][a-zA-Z_\$0-9]*'
+    r'[a-zA-Z_\$\w][a-zA-Z_\$0-9\w]*'
     t.value = t.value.upper()
     t.type = reserved_words.get(t.value.upper(), 'ID') # Check for reserved words
     return t
